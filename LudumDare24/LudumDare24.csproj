@@ -79,6 +79,7 @@
     <Reference Include="mscorlib" />
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MvvmLightLibs.4.1.23.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -93,6 +94,9 @@
     <Compile Include="Models\Boards\IBoard.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Doodads\Cage.cs" />
+    <Compile Include="Models\Doodads\Cheese.cs" />
+    <Compile Include="Models\Doodads\DoodadPlacement.cs" />
+    <Compile Include="Models\Doodads\Mouse.cs" />
     <Compile Include="Models\Doodads\Crate.cs" />
     <Compile Include="Models\Levels\Level.cs" />
     <Compile Include="Models\Team.cs" />

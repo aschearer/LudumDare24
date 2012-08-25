@@ -9,7 +9,9 @@ namespace LudumDare24.Models.Doodads
 {
     public class Cage : IDoodad
     {
-        private const float Width = 250f / Constants.PixelsPerMeter;
+        public const float HalfSize = 250f / Constants.PixelsPerMeter;
+
+        private const float Width = Cage.HalfSize;
         private const float Height = 10f / Constants.PixelsPerMeter;
 
         private readonly Body body;

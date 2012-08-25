@@ -6,19 +6,18 @@ using Microsoft.Xna.Framework;
 
 namespace LudumDare24.Models.Doodads
 {
-    public class Crate : IDoodad
+    public class Mouse : IDoodad
     {
-        public const float Size = 100f / Constants.PixelsPerMeter;
-        public const float HalfSize = Crate.Size / 2f;
+        private const float Size = 50f / Constants.PixelsPerMeter;
 
         private readonly Body body;
 
-        public Crate(World world, Vector2 position)
+        public Mouse(World world, Vector2 position)
         {
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.BodyType = BodyType.Dynamic;
             PolygonShape shape = new PolygonShape(0.2f);
-            shape.SetAsBox(Crate.HalfSize, Crate.HalfSize);
+            shape.SetAsBox(Mouse.Size, Mouse.Size);
             Fixture fixture = this.body.CreateFixture(shape);
         }
 

@@ -24,6 +24,7 @@ namespace LudumDare24.Views.States
         private readonly DebugViewXNA debugView;
         private readonly PlayingViewModel viewModel;
         private bool isContentLoaded;
+        private DoodadPlacement[] placements;
 
         public PlayingView(
             SpriteBatch spriteBatch, 
@@ -44,7 +45,7 @@ namespace LudumDare24.Views.States
         public void NavigateTo()
         {
             this.LoadContent();
-            this.viewModel.StartNewGameCommand.Execute(null);
+            this.viewModel.StartNewGameCommand.Execute(this.placements);
             this.inputManager.Click += this.OnClick;
         }
 
@@ -60,8 +61,8 @@ namespace LudumDare24.Views.States
 
         public void Draw(GameTime gameTime)
         {
-            Matrix rotationMatrix = 
-                Matrix.CreateTranslation(-Constants.ScreenWidth / 2f, -Constants.ScreenHeight / 2f, 0) *
+            Matrix rotationMatrix =
+                Matrix.CreateTranslation(-Cage.HalfSize * Constants.PixelsPerMeter, -Cage.HalfSize * Constants.PixelsPerMeter, 0) *
                 Matrix.CreateRotationZ(this.viewModel.Rotation) *
                 Matrix.CreateTranslation(Constants.ScreenWidth / 2f, Constants.ScreenHeight / 2f, 0);
             this.spriteBatch.Begin(
@@ -105,6 +106,13 @@ namespace LudumDare24.Views.States
             this.doodadView.LoadContent(this.content);
             this.debugView.LoadContent(this.spriteBatch.GraphicsDevice, this.content);
             this.isContentLoaded = true;
+
+            this.placements = new DoodadPlacement[5];
+            placements[0] = new DoodadPlacement() { Column = 1, Row = 0, DoodadType = typeof(Crate).FullName };
+            placements[1] = new DoodadPlacement() { Column = 2, Row = 2, DoodadType = typeof(Crate).FullName };
+            placements[2] = new DoodadPlacement() { Column = 1, Row = 1, DoodadType = typeof(Crate).FullName };
+            placements[3] = new DoodadPlacement() { Column = 4, Row = 0, DoodadType = typeof(Mouse).FullName };
+            placements[4] = new DoodadPlacement() { Column = 0, Row = 0, DoodadType = typeof(Cheese).FullName };
         }
 
         private void OnClick(object sender, InputEventArgs e)

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
@@ -13,9 +14,9 @@ namespace LudumDare24.Models.Doodads
             this.world = world;
         }
 
-        public T CreateDoodad<T>(Vector2 position)
+        public IDoodad CreateDoodad(Type doodadType, Vector2 position)
         {
-            return (T)typeof(T).GetConstructors().First().Invoke(new object[] { this.world, position });
+            return (IDoodad)doodadType.GetConstructors().First().Invoke(new object[] { this.world, position });
         }
     }
 }

@@ -27,7 +27,7 @@ namespace LudumDare24.ViewModels.States
             this.board = board;
             this.doodadFactory = doodadFactory;
             this.world = world;
-            this.StartNewGameCommand = new RelayCommand(this.StartNewGame);
+            this.StartNewGameCommand = new RelayCommand<IEnumerable<DoodadPlacement>>(this.StartNewGame);
         }
 
         public ICommand StartNewGameCommand { get; private set; }
@@ -81,23 +81,17 @@ namespace LudumDare24.ViewModels.States
             //this.world.Gravity = new Vector2((float)Math.Sin(this.Rotation), (float)Math.Cos(this.Rotation));
         }
 
-        private void StartNewGame()
+        private void StartNewGame(IEnumerable<DoodadPlacement> doodadPlacements)
         {
-            Vector2 position = new Vector2(Constants.ScreenWidth / 2f, Constants.ScreenHeight / 2f);
-            this.cage = this.doodadFactory.CreateDoodad<Cage>(position / Constants.PixelsPerMeter);
+            this.cage = (Cage)this.doodadFactory.CreateDoodad(typeof(Cage), new Vector2(Cage.HalfSize, Cage.HalfSize));
 
-            this.doodadFactory.CreateDoodad<Crate>(new Vector2(11, 12));
-            this.doodadFactory.CreateDoodad<Crate>(new Vector2(13.5f, 9));
-            this.doodadFactory.CreateDoodad<Crate>(new Vector2(12.5f, 7));
-
-            //float size = 80 / 30f;
-            //for (int row = 0; row < 4; row++)
-            //{
-            //    for (int column = 0; column < 4; column++)
-            //    {
-            //        this.board.AddTile(this.doodadFactory.CreateDoodad<Doodad>(new Vector2(2 + size * column, 2 + size * row)));
-            //    }
-            //}
+            foreach (DoodadPlacement placement in doodadPlacements)
+            {
+                Type type = Type.GetType(placement.DoodadType);
+                this.doodadFactory.CreateDoodad(
+                    type,
+                    new Vector2(Crate.HalfSize + placement.Column * Crate.Size, Crate.HalfSize + placement.Row * Crate.Size));
+            }
         }
 
         public void RotateCage()

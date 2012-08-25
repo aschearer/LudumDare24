@@ -71,7 +71,7 @@ namespace LudumDare24
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             this.conductorView.Draw(gameTime);
 
