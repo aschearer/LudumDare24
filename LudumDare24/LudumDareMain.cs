@@ -1,3 +1,7 @@
+using LudumDare24.ViewModels;
+using LudumDare24.ViewModels.States;
+using LudumDare24.Views;
+using LudumDare24.Views.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,24 +15,34 @@ namespace LudumDare24
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private ConductorView conductorView;
+        private MouseInputManager inputManager;
 
         public LudumDareMain()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            this.graphics = new GraphicsDeviceManager(this);
+            this.Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+
+            Bootstrapper bootstrapper = new Bootstrapper(this.Content, this.spriteBatch);
+
+            this.conductorView = bootstrapper.GetInstance<ConductorView>();
+            this.inputManager = bootstrapper.GetInstance<MouseInputManager>();
+
+            IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
+            conductorViewModel.Push(typeof(PlayingViewModel));
+
         }
 
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -44,7 +58,10 @@ namespace LudumDare24
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            MouseState state = Mouse.GetState();
+            this.inputManager.Update(state.LeftButton, new Point(state.X, state.Y));
+
+            this.conductorView.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -53,7 +70,7 @@ namespace LudumDare24
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            this.conductorView.Draw(gameTime);
 
             base.Draw(gameTime);
         }
