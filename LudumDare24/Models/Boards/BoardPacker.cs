@@ -88,6 +88,51 @@ namespace LudumDare24.Models.Boards
                 downDelta, 
                 doodadFetcher, 
                 doodadMover);
+
+            this.PullDown(
+                acrossStart,
+                acrossEnd,
+                acrossDelta,
+                downEnd,
+                downStart,
+                -downDelta,
+                doodadFetcher,
+                doodadMover);
+        }
+
+        private void PullDown(
+            int acrossStart,
+            int acrossEnd,
+            int acrossDelta,
+            int downStart,
+            int downEnd,
+            int downDelta,
+            Func<int, int, IDoodad> doodadFetcher,
+            Action<IDoodad, int> doodadMover)
+        {
+            for (int column = acrossStart; column != (acrossEnd + acrossDelta); column += acrossDelta)
+            {
+                int depth = 0;
+                for (int row = downStart; row != (downEnd + downDelta); row += downDelta)
+                {
+                    IDoodad doodad = doodadFetcher(column, row);
+                    if (doodad == null)
+                    {
+                        depth++;
+                    }
+                    else
+                    {
+                        if (depth > 0 && doodad.FallingState == FallingState.Up)
+                        {
+                            doodadMover(doodad, -depth);
+                        }
+                        else
+                        {
+                            depth = 0;
+                        }
+                    }
+                }
+            }
         }
 
         private void PushDown(
