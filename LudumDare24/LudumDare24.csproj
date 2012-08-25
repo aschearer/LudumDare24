@@ -111,6 +111,7 @@
     <Compile Include="ViewModels\IConductorViewModel.cs" />
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
+    <Compile Include="Views\ButtonView.cs" />
     <Compile Include="Views\ConductorView.cs" />
     <Compile Include="Views\Doodads\DoodadView.cs" />
     <Compile Include="Views\Farseer\DebugView.cs" />
@@ -129,6 +130,15 @@
     <Compile Include="Views\States\PlayingView.cs" />
     <Compile Include="Views\TeamView.cs" />
     <Compile Include="Views\Tiles\TileView.cs" />
+    <Compile Include="Views\Tweens\Easings\DiscreteEasing.cs" />
+    <Compile Include="Views\Tweens\Easings\EasingFunction.cs" />
+    <Compile Include="Views\Tweens\Easings\IEasing.cs" />
+    <Compile Include="Views\Tweens\Easings\LinearEasing.cs" />
+    <Compile Include="Views\Tweens\Easings\QuadraticEasing.cs" />
+    <Compile Include="Views\Tweens\ITween.cs" />
+    <Compile Include="Views\Tweens\Repeat.cs" />
+    <Compile Include="Views\Tweens\Tween.cs" />
+    <Compile Include="Views\Tweens\TweenFactory.cs" />
     <Compile Include="Views\Units\UnitView.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,7 @@ namespace LudumDare24.ViewModels.States
         private readonly World world;
         private Cage cage;
         private float targetRotation;
+        private bool rotateClockwise;
 
         public PlayingViewModel(IBoard board, DoodadFactory doodadFactory, World world)
         {
@@ -64,7 +65,8 @@ namespace LudumDare24.ViewModels.States
 
             if (Math.Abs(this.Rotation - this.targetRotation) > 0.01f)
             {
-                this.Rotation += MathHelper.Pi / 50;
+                float theta = MathHelper.Pi / 50;
+                this.Rotation += this.rotateClockwise ? theta : -theta;
                 if (Math.Abs(this.Rotation - this.targetRotation) <= 0.01f)
                 {
                     this.Rotation = this.targetRotation;
@@ -94,9 +96,10 @@ namespace LudumDare24.ViewModels.States
             }
         }
 
-        public void RotateCage()
+        public void Rotate(bool clockwise)
         {
-            this.targetRotation += MathHelper.PiOver2;
+            this.rotateClockwise = clockwise;
+            this.targetRotation += clockwise ? MathHelper.PiOver2 : -MathHelper.PiOver2;
         }
     }
 }

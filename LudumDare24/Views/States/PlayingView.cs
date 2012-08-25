@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GalaSoft.MvvmLight.Command;
 using LudumDare24.Models;
 using LudumDare24.Models.Doodads;
 using LudumDare24.Models.Units;
@@ -23,6 +24,8 @@ namespace LudumDare24.Views.States
         private readonly DoodadView doodadView;
         private readonly DebugViewXNA debugView;
         private readonly PlayingViewModel viewModel;
+        private readonly ButtonView rotateClockwiseButton;
+        private readonly ButtonView rotateCounterClockwiseButton;
         private bool isContentLoaded;
         private DoodadPlacement[] placements;
 
@@ -40,18 +43,31 @@ namespace LudumDare24.Views.States
             this.doodadView = doodadView;
             this.debugView = debugView;
             this.viewModel = viewModel;
+            this.rotateClockwiseButton = new ButtonView(
+                inputManager,
+                "Images/Playing/RotateClockwise",
+                new Vector2(Constants.ScreenWidth - 100, Constants.ScreenHeight / 2));
+            this.rotateClockwiseButton.Command = new RelayCommand(() => this.viewModel.Rotate(true));
+
+            this.rotateCounterClockwiseButton = new ButtonView(
+                inputManager,
+                "Images/Playing/RotateCounterClockwise",
+                new Vector2(100, Constants.ScreenHeight / 2));
+            this.rotateCounterClockwiseButton.Command = new RelayCommand(() => this.viewModel.Rotate(false));
         }
 
         public void NavigateTo()
         {
             this.LoadContent();
             this.viewModel.StartNewGameCommand.Execute(this.placements);
-            this.inputManager.Click += this.OnClick;
+            this.rotateClockwiseButton.Activate();
+            this.rotateCounterClockwiseButton.Activate();
         }
 
         public void NavigateFrom()
         {
-            this.inputManager.Click -= this.OnClick;
+            this.rotateClockwiseButton.Deactivate();
+            this.rotateCounterClockwiseButton.Deactivate();
         }
 
         public void Update(GameTime gameTime)
@@ -74,6 +90,11 @@ namespace LudumDare24.Views.States
                 null,
                 rotationMatrix);
             this.DrawDoodads(gameTime, this.viewModel.Doodads);
+            this.spriteBatch.End();
+
+            this.spriteBatch.Begin();
+            this.rotateClockwiseButton.Draw(gameTime, this.spriteBatch);
+            this.rotateCounterClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
 
             var matrix = Matrix.CreateOrthographicOffCenter(
@@ -105,6 +126,8 @@ namespace LudumDare24.Views.States
 
             this.doodadView.LoadContent(this.content);
             this.debugView.LoadContent(this.spriteBatch.GraphicsDevice, this.content);
+            this.rotateClockwiseButton.LoadContent(this.content);
+            this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;
 
             this.placements = new DoodadPlacement[5];
@@ -113,11 +136,6 @@ namespace LudumDare24.Views.States
             placements[2] = new DoodadPlacement() { Column = 1, Row = 1, DoodadType = typeof(Crate).FullName };
             placements[3] = new DoodadPlacement() { Column = 4, Row = 0, DoodadType = typeof(Mouse).FullName };
             placements[4] = new DoodadPlacement() { Column = 0, Row = 0, DoodadType = typeof(Cheese).FullName };
-        }
-
-        private void OnClick(object sender, InputEventArgs e)
-        {
-            this.viewModel.RotateCage();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace LudumDare24
     /// </summary>
     public class LudumDareMain : Game
     {
-        GraphicsDeviceManager graphics;
+        readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private ConductorView conductorView;
         private MouseInputManager inputManager;
