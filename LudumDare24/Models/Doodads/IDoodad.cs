@@ -4,8 +4,8 @@ namespace LudumDare24.Models.Doodads
 {
     public interface IDoodad
     {
-        Vector2 Position { get; }
-        float Rotation { get; }
+        int Column { get; }
+        int Row { get; }
 
         void Update(GameTime gameTime);
     }

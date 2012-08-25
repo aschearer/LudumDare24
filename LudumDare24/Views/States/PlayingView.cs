@@ -1,15 +1,10 @@
-using System;
 using System.Collections.Generic;
 using GalaSoft.MvvmLight.Command;
 using LudumDare24.Models;
 using LudumDare24.Models.Doodads;
-using LudumDare24.Models.Units;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views.Doodads;
-using LudumDare24.Views.Farseer;
 using LudumDare24.Views.Input;
-using LudumDare24.Views.Tiles;
-using LudumDare24.Views.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,28 +15,24 @@ namespace LudumDare24.Views.States
     {
         private readonly SpriteBatch spriteBatch;
         private readonly ContentManager content;
-        private readonly IInputManager inputManager;
         private readonly DoodadView doodadView;
-        private readonly DebugViewXNA debugView;
         private readonly PlayingViewModel viewModel;
         private readonly ButtonView rotateClockwiseButton;
         private readonly ButtonView rotateCounterClockwiseButton;
         private bool isContentLoaded;
         private DoodadPlacement[] placements;
+        private Texture2D boardTexture;
 
         public PlayingView(
             SpriteBatch spriteBatch, 
             ContentManager content, 
             IInputManager inputManager,
             DoodadView doodadView,
-            DebugViewXNA debugView,
             PlayingViewModel viewModel)
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
-            this.inputManager = inputManager;
             this.doodadView = doodadView;
-            this.debugView = debugView;
             this.viewModel = viewModel;
             this.rotateClockwiseButton = new ButtonView(
                 inputManager,
@@ -78,7 +69,7 @@ namespace LudumDare24.Views.States
         public void Draw(GameTime gameTime)
         {
             Matrix rotationMatrix =
-                Matrix.CreateTranslation(-Cage.HalfSize * Constants.PixelsPerMeter, -Cage.HalfSize * Constants.PixelsPerMeter, 0) *
+                Matrix.CreateTranslation(-Constants.BoardHalfSize, -Constants.BoardHalfSize, 0) *
                 Matrix.CreateRotationZ(this.viewModel.Rotation) *
                 Matrix.CreateTranslation(Constants.ScreenWidth / 2f, Constants.ScreenHeight / 2f, 0);
             this.spriteBatch.Begin(
@@ -90,23 +81,16 @@ namespace LudumDare24.Views.States
                 null,
                 rotationMatrix);
             this.DrawDoodads(gameTime, this.viewModel.Doodads);
+            this.spriteBatch.Draw(
+                this.boardTexture,
+                Vector2.Zero,
+                Color.White);
             this.spriteBatch.End();
 
             this.spriteBatch.Begin();
             this.rotateClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.rotateCounterClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
-
-            var matrix = Matrix.CreateOrthographicOffCenter(
-                            0,
-                            Constants.ScreenWidth / Constants.PixelsPerMeter,
-                            Constants.ScreenHeight / Constants.PixelsPerMeter,
-                            0f,
-                            0f,
-                            1f);
-            //matrix * Matrix.CreateRotationZ(this.viewModel.Rotation);
-
-            //this.debugView.RenderDebugData(ref matrix);
         }
 
         private void DrawDoodads(GameTime gameTime, IEnumerable<IDoodad> doodads)
@@ -124,8 +108,8 @@ namespace LudumDare24.Views.States
                 return;
             }
 
+            this.boardTexture = this.content.Load<Texture2D>("Images/Doodads/Cage");
             this.doodadView.LoadContent(this.content);
-            this.debugView.LoadContent(this.spriteBatch.GraphicsDevice, this.content);
             this.rotateClockwiseButton.LoadContent(this.content);
             this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;

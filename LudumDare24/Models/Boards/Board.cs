@@ -1,38 +1,25 @@
 ﻿using System.Collections.Generic;
 using LudumDare24.Models.Doodads;
-using LudumDare24.Models.Units;
 
 namespace LudumDare24.Models.Boards
 {
     public class Board : IBoard
     {
-        private readonly List<IDoodad> tiles;
-        private readonly List<IUnit> units;
+        private readonly List<IDoodad> doodads;
 
         public Board()
         {
-            this.tiles = new List<IDoodad>();
-            this.units = new List<IUnit>();
+            this.doodads = new List<IDoodad>();
         }
 
-        public IEnumerable<IDoodad> Tiles
+        public IEnumerable<IDoodad> Doodads
         {
-            get { return this.tiles; }
+            get { return this.doodads; }
         }
 
-        public IEnumerable<IUnit> Units
+        public void AddDoodad(IDoodad doodad)
         {
-            get { return this.units; }
-        }
-
-        public void AddTile(IDoodad doodad)
-        {
-            this.tiles.Add(doodad);
-        }
-
-        public void AddUnit(IUnit unit)
-        {
-            this.units.Add(unit);
+            this.doodads.Add(doodad);
         }
     }
 }
