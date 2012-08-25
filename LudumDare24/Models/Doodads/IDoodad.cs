@@ -6,6 +6,7 @@ namespace LudumDare24.Models.Doodads
     {
         int Column { get; set; }
         int Row { get; set; }
+        FallingState FallingState { get; }
 
         void Update(GameTime gameTime);
     }

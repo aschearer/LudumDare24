@@ -12,7 +12,7 @@ namespace LudumDare24.Models.Boards
             this.board = board;
         }
 
-        public void Pack()
+        public void Pack(float rotation)
         {
             for (int column = 0; column < this.board.NumberOfColumns; column++)
             {
@@ -26,7 +26,7 @@ namespace LudumDare24.Models.Boards
                     }
                     else
                     {
-                        if (depth > 0)
+                        if (depth > 0 && doodad.FallingState == FallingState.Down)
                         {
                             doodad.Row += depth;
                         }

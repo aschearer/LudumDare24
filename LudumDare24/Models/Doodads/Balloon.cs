@@ -5,6 +5,7 @@ namespace LudumDare24.Models.Doodads
         public Balloon(int column, int row)
             : base(column, row)
         {
+            this.FallingState = FallingState.Up;
         }
     }
 }

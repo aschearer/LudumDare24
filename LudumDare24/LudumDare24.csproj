@@ -98,6 +98,7 @@
     <Compile Include="Models\Doodads\Balloon.cs" />
     <Compile Include="Models\Doodads\Cat.cs" />
     <Compile Include="Models\Doodads\Doodad.cs" />
+    <Compile Include="Models\Doodads\FallingState.cs" />
     <Compile Include="Models\Doodads\Peg.cs" />
     <Compile Include="Models\Doodads\DoodadPlacement.cs" />
     <Compile Include="Models\Doodads\Mouse.cs" />

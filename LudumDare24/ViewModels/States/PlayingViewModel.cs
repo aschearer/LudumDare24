@@ -38,7 +38,7 @@ namespace LudumDare24.ViewModels.States
 
         public void Update(GameTime gameTime)
         {
-            this.boardPacker.Pack();
+            this.boardPacker.Pack(this.Rotation);
             foreach (IDoodad doodad in this.Doodads)
             {
                 doodad.Update(gameTime);
