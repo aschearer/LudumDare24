@@ -6,5 +6,6 @@ namespace LudumDare24.Models.Units
     {
         int Column { get; }
         int Row { get; }
+        Team Team { get; }
     }
 }

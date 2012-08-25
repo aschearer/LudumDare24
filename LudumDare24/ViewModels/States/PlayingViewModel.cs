@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using LudumDare24.Models;
 using LudumDare24.Models.Boards;
 using LudumDare24.Models.Tiles;
 using LudumDare24.Models.Units;
@@ -35,11 +36,11 @@ namespace LudumDare24.ViewModels.States
             {
                 for (int column = 0; column < 4; column++)
                 {
-                    this.board.AddTile(new Tile(column, row));
+                    this.board.AddTile(new Tile(column, row, Team.None));
                 }
             }
 
-            this.board.AddUnit(new Marker(0, 0));
+            this.board.AddUnit(new Marker(0, 0, Team.One));
         }
     }
 }

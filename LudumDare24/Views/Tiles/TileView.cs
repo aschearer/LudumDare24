@@ -7,7 +7,13 @@ namespace LudumDare24.Views.Tiles
 {
     public class TileView : IImmediateControl<ITile>
     {
+        private readonly TeamView teamView;
         private Texture2D tileTexture;
+
+        public TileView(TeamView teamView)
+        {
+            this.teamView = teamView;
+        }
 
         public void LoadContent(ContentManager content)
         {
@@ -19,7 +25,7 @@ namespace LudumDare24.Views.Tiles
             spriteBatch.Draw(
                 this.tileTexture,
                 ScreenHelper.CoordinatesToPixels(dataContext.Column, dataContext.Row),
-                Color.White);
+                this.teamView.GetColorForTeam(dataContext.Team));
         }
     }
 }

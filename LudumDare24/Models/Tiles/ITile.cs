@@ -4,5 +4,6 @@
     {
         int Column { get; }
         int Row { get; }
+        Team Team { get; }
     }
 }

@@ -38,6 +38,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<MouseInputManager>(() => (MouseInputManager)this.GetInstance<IInputManager>());
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
+            SimpleIoc.Default.Register<TeamView>();
             SimpleIoc.Default.Register<TileView>();
             SimpleIoc.Default.Register<UnitView>();
 

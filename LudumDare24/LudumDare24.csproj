@@ -88,6 +88,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\Boards\Board.cs" />
     <Compile Include="Models\Boards\IBoard.cs" />
+    <Compile Include="Models\Team.cs" />
     <Compile Include="Models\Tiles\ITile.cs" />
     <Compile Include="Models\Tiles\Tile.cs" />
     <Compile Include="Models\Units\IUnit.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Views\IScreenView.cs" />
     <Compile Include="Views\ScreenHelper.cs" />
     <Compile Include="Views\States\PlayingView.cs" />
+    <Compile Include="Views\TeamView.cs" />
     <Compile Include="Views\Tiles\TileView.cs" />
     <Compile Include="Views\Units\UnitView.cs" />
   </ItemGroup>
