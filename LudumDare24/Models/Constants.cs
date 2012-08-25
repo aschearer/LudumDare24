@@ -4,6 +4,6 @@ namespace LudumDare24.Models
     {
         public const int ScreenWidth = 1024;
         public const int ScreenHeight = 768;
-        public const int PixelsPerMeter = 30;
+        public const float PixelsPerMeter = 30;
     }
 }

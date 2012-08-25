@@ -97,7 +97,6 @@
     <Compile Include="Models\Levels\Level.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\Doodads\IDoodad.cs" />
-    <Compile Include="Models\Doodads\Doodad.cs" />
     <Compile Include="Models\Doodads\DoodadFactory.cs" />
     <Compile Include="Models\Units\IUnit.cs" />
     <Compile Include="Models\Units\Marker.cs" />
@@ -109,6 +108,7 @@
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="Views\ConductorView.cs" />
+    <Compile Include="Views\Doodads\DoodadView.cs" />
     <Compile Include="Views\Farseer\DebugView.cs" />
     <Compile Include="Views\Farseer\DebugViewXNA.cs" />
     <Compile Include="Views\Farseer\PrimitiveBatch.cs" />

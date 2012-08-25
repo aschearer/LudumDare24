@@ -25,5 +25,14 @@ namespace LudumDare24.Models.Doodads
         {
             get { return this.body.Position; }
         }
+
+        public float Rotation
+        {
+            get { return this.body.Rotation; }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+        }
     }
 }

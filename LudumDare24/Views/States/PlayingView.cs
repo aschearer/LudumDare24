@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using LudumDare24.Models;
 using LudumDare24.Models.Doodads;
 using LudumDare24.Models.Units;
 using LudumDare24.ViewModels.States;
+using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Farseer;
+using LudumDare24.Views.Input;
 using LudumDare24.Views.Tiles;
 using LudumDare24.Views.Units;
 using Microsoft.Xna.Framework;
@@ -16,8 +19,8 @@ namespace LudumDare24.Views.States
     {
         private readonly SpriteBatch spriteBatch;
         private readonly ContentManager content;
-        private readonly TileView tileView;
-        private readonly UnitView unitView;
+        private readonly IInputManager inputManager;
+        private readonly DoodadView doodadView;
         private readonly DebugViewXNA debugView;
         private readonly PlayingViewModel viewModel;
         private bool isContentLoaded;
@@ -25,15 +28,15 @@ namespace LudumDare24.Views.States
         public PlayingView(
             SpriteBatch spriteBatch, 
             ContentManager content, 
-            TileView tileView,
-            UnitView unitView,
+            IInputManager inputManager,
+            DoodadView doodadView,
             DebugViewXNA debugView,
             PlayingViewModel viewModel)
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
-            this.tileView = tileView;
-            this.unitView = unitView;
+            this.inputManager = inputManager;
+            this.doodadView = doodadView;
             this.debugView = debugView;
             this.viewModel = viewModel;
         }
@@ -42,10 +45,12 @@ namespace LudumDare24.Views.States
         {
             this.LoadContent();
             this.viewModel.StartNewGameCommand.Execute(null);
+            this.inputManager.Click += this.OnClick;
         }
 
         public void NavigateFrom()
         {
+            this.inputManager.Click -= this.OnClick;
         }
 
         public void Update(GameTime gameTime)
@@ -55,34 +60,38 @@ namespace LudumDare24.Views.States
 
         public void Draw(GameTime gameTime)
         {
-            this.spriteBatch.Begin();
-            this.DrawTiles(gameTime, this.viewModel.Tiles);
-            this.DrawUnits(gameTime, this.viewModel.Units);
+            Matrix rotationMatrix = 
+                Matrix.CreateTranslation(-Constants.ScreenWidth / 2f, -Constants.ScreenHeight / 2f, 0) *
+                Matrix.CreateRotationZ(this.viewModel.Rotation) *
+                Matrix.CreateTranslation(Constants.ScreenWidth / 2f, Constants.ScreenHeight / 2f, 0);
+            this.spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                null,
+                null,
+                null,
+                null,
+                null,
+                rotationMatrix);
+            this.DrawDoodads(gameTime, this.viewModel.Doodads);
             this.spriteBatch.End();
 
-            var matrix = Matrix.CreateOrthographicOffCenter(0f,
+            var matrix = Matrix.CreateOrthographicOffCenter(
+                            0,
                             Constants.ScreenWidth / Constants.PixelsPerMeter,
                             Constants.ScreenHeight / Constants.PixelsPerMeter,
                             0f,
                             0f,
                             1f);
+            //matrix * Matrix.CreateRotationZ(this.viewModel.Rotation);
 
-            this.debugView.RenderDebugData(ref matrix);
+            //this.debugView.RenderDebugData(ref matrix);
         }
 
-        private void DrawTiles(GameTime gameTime, IEnumerable<IDoodad> tiles)
+        private void DrawDoodads(GameTime gameTime, IEnumerable<IDoodad> doodads)
         {
-            foreach (IDoodad tile in tiles)
+            foreach (IDoodad doodad in doodads)
             {
-                this.tileView.Draw(gameTime, spriteBatch, tile);
-            }
-        }
-
-        private void DrawUnits(GameTime gameTime, IEnumerable<IUnit> units)
-        {
-            foreach (IUnit unit in units)
-            {
-                this.unitView.Draw(gameTime, spriteBatch, unit);
+                this.doodadView.Draw(gameTime, this.spriteBatch, doodad);
             }
         }
 
@@ -93,10 +102,14 @@ namespace LudumDare24.Views.States
                 return;
             }
 
-            this.tileView.LoadContent(this.content);
-            this.unitView.LoadContent(this.content);
+            this.doodadView.LoadContent(this.content);
             this.debugView.LoadContent(this.spriteBatch.GraphicsDevice, this.content);
             this.isContentLoaded = true;
+        }
+
+        private void OnClick(object sender, InputEventArgs e)
+        {
+            this.viewModel.RotateCage();
         }
     }
 }

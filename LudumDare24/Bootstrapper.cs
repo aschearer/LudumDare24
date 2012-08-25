@@ -7,6 +7,7 @@ using LudumDare24.Models.Doodads;
 using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
+using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Farseer;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.States;
@@ -44,9 +45,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<MouseInputManager>(() => (MouseInputManager)this.GetInstance<IInputManager>());
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
-            SimpleIoc.Default.Register<TeamView>();
-            SimpleIoc.Default.Register<TileView>();
-            SimpleIoc.Default.Register<UnitView>();
+            SimpleIoc.Default.Register<DoodadView>();
             SimpleIoc.Default.Register<DebugViewXNA>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
