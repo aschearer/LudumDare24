@@ -18,6 +18,7 @@ namespace LudumDare24.ViewModels.States
         private readonly LevelFactory levelFactory;
         private float targetRotation;
         private bool rotateClockwise;
+        private TimeSpan cooldownTimer;
 
         public PlayingViewModel(
             IBoard board, 
@@ -42,10 +43,6 @@ namespace LudumDare24.ViewModels.States
         public void Update(GameTime gameTime)
         {
             this.boardPacker.Pack(this.Rotation);
-            foreach (IDoodad doodad in this.Doodads)
-            {
-                doodad.Update(gameTime, this.board);
-            }
 
             if (Math.Abs(this.Rotation - this.targetRotation) > 0.01f)
             {
@@ -59,19 +56,38 @@ namespace LudumDare24.ViewModels.States
                 }
             }
 
-            Mouse mouse = (Mouse)this.Doodads.First(doodad => doodad is Mouse);
-            if (mouse.GotTheCheese)
+            if (this.cooldownTimer == TimeSpan.Zero)
             {
-                this.levelFactory.AdvanceToNextLevel();
-                this.levelFactory.LoadLevel();
-                this.Rotation = 0;
-                this.targetRotation = 0;
+                foreach (IDoodad doodad in this.Doodads)
+                {
+                    doodad.Update(gameTime, this.board);
+                }
+
+                Mouse mouse = (Mouse)this.Doodads.First(doodad => doodad is Mouse);
+                if (mouse.GotTheCheese)
+                {
+                    this.levelFactory.AdvanceToNextLevel();
+                    this.levelFactory.LoadLevel();
+                    this.Rotation = 0;
+                    this.targetRotation = 0;
+                }
+                else if (mouse.CaughtByCat)
+                {
+                    this.levelFactory.LoadLevel();
+                    this.Rotation = 0;
+                    this.targetRotation = 0;
+                }
             }
-            else if (mouse.CaughtByCat)
+            else
             {
-                this.levelFactory.LoadLevel();
-                this.Rotation = 0;
-                this.targetRotation = 0;
+                if (this.cooldownTimer > gameTime.ElapsedGameTime)
+                {
+                    this.cooldownTimer -= gameTime.ElapsedGameTime;
+                }
+                else
+                {
+                    this.cooldownTimer = TimeSpan.Zero;
+                }
             }
         }
 
@@ -82,6 +98,12 @@ namespace LudumDare24.ViewModels.States
 
         public void Rotate(bool clockwise)
         {
+            if (this.cooldownTimer > TimeSpan.Zero)
+            {
+                return;
+            }
+
+            this.cooldownTimer = TimeSpan.FromSeconds(.75f);
             this.rotateClockwise = clockwise;
             this.targetRotation += clockwise ? MathHelper.PiOver2 : -MathHelper.PiOver2;
         }
