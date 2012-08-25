@@ -129,7 +129,6 @@
     <Compile Include="Views\Input\MouseInputManager.cs" />
     <Compile Include="Views\IRetainedControl.cs" />
     <Compile Include="Views\IScreenView.cs" />
-    <Compile Include="Views\ScreenHelper.cs" />
     <Compile Include="Views\States\PlayingView.cs" />
     <Compile Include="Views\TeamView.cs" />
     <Compile Include="Views\Tiles\TileView.cs" />
