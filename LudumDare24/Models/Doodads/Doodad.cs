@@ -1,4 +1,4 @@
-using System;
+using LudumDare24.Models.Boards;
 using Microsoft.Xna.Framework;
 
 namespace LudumDare24.Models.Doodads
@@ -18,7 +18,7 @@ namespace LudumDare24.Models.Doodads
 
         public FallingState FallingState { get; protected set; }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime, IBoard board)
         {
         }
     }

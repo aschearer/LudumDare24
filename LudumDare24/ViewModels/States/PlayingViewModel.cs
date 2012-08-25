@@ -41,7 +41,7 @@ namespace LudumDare24.ViewModels.States
             this.boardPacker.Pack(this.Rotation);
             foreach (IDoodad doodad in this.Doodads)
             {
-                doodad.Update(gameTime);
+                doodad.Update(gameTime, this.board);
             }
 
             if (Math.Abs(this.Rotation - this.targetRotation) > 0.01f)

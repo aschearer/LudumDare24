@@ -79,6 +79,27 @@ namespace LudumDare24.Models.Boards
                 }
             }
 
+            this.PushDown(
+                acrossStart, 
+                acrossEnd, 
+                acrossDelta, 
+                downStart, 
+                downEnd, 
+                downDelta, 
+                doodadFetcher, 
+                doodadMover);
+        }
+
+        private void PushDown(
+            int acrossStart, 
+            int acrossEnd, 
+            int acrossDelta, 
+            int downStart, 
+            int downEnd, 
+            int downDelta, 
+            Func<int, int, IDoodad> doodadFetcher, 
+            Action<IDoodad, int> doodadMover)
+        {
             for (int column = acrossStart; column != (acrossEnd + acrossDelta); column += acrossDelta)
             {
                 int depth = 0;
