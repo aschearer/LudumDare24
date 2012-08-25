@@ -112,12 +112,53 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Levels\Level3.tmx">
+      <Name>Level3</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LudumDare24.ContentPipeline\LudumDare24.ContentPipeline.csproj">
       <Project>{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}</Project>
       <Name>LudumDare24.ContentPipeline</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level2.tmx">
+      <Name>Level2</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level4.tmx">
+      <Name>Level4</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level5.tmx">
+      <Name>Level5</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level6.tmx">
+      <Name>Level6</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level7.tmx">
+      <Name>Level7</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

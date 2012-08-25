@@ -1,11 +1,13 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using LudumDare24.Models.Boards;
 using LudumDare24.Models.Doodads;
 using LudumDare24.Models.Levels;
 using Microsoft.Xna.Framework;
+using Mouse = LudumDare24.Models.Doodads.Mouse;
 
 namespace LudumDare24.ViewModels.States
 {
@@ -55,6 +57,21 @@ namespace LudumDare24.ViewModels.States
                     Vector2 adjustment = new Vector2((float)Math.Sin(this.Rotation), (float)Math.Cos(this.Rotation));
                     adjustment.Normalize();
                 }
+            }
+
+            Mouse mouse = (Mouse)this.Doodads.First(doodad => doodad is Mouse);
+            if (mouse.GotTheCheese)
+            {
+                this.levelFactory.AdvanceToNextLevel();
+                this.levelFactory.LoadLevel();
+                this.Rotation = 0;
+                this.targetRotation = 0;
+            }
+            else if (mouse.CaughtByCat)
+            {
+                this.levelFactory.LoadLevel();
+                this.Rotation = 0;
+                this.targetRotation = 0;
             }
         }
 
