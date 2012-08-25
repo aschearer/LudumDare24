@@ -95,6 +95,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Doodads\Cage.cs" />
     <Compile Include="Models\Doodads\Cheese.cs" />
+    <Compile Include="Models\Doodads\Cat.cs" />
     <Compile Include="Models\Doodads\DoodadPlacement.cs" />
     <Compile Include="Models\Doodads\Mouse.cs" />
     <Compile Include="Models\Doodads\Crate.cs" />
