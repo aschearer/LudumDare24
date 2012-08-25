@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LudumDare24.Models.Tiles;
 using LudumDare24.Models.Units;
 
@@ -23,6 +24,11 @@ namespace LudumDare24.Models.Boards
         public IEnumerable<IUnit> Units
         {
             get { return this.units; }
+        }
+
+        public void AddTile(ITile tile)
+        {
+            this.tiles.Add(tile);
         }
     }
 }

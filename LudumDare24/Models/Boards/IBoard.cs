@@ -9,5 +9,7 @@ namespace LudumDare24.Models.Boards
     {
         IEnumerable<ITile> Tiles { get; }
         IEnumerable<IUnit> Units { get; }
+
+        void AddTile(ITile tile);
     }
 }

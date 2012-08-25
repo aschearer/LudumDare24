@@ -31,6 +31,7 @@ namespace LudumDare24.Views.States
         public void NavigateTo()
         {
             this.LoadContent();
+            this.viewModel.StartNewGameCommand.Execute(null);
         }
 
         public void NavigateFrom()
@@ -43,7 +44,9 @@ namespace LudumDare24.Views.States
 
         public void Draw(GameTime gameTime)
         {
+            this.spriteBatch.Begin();
             this.DrawTiles(gameTime, this.viewModel.Tiles);
+            this.spriteBatch.End();
         }
 
         private void DrawTiles(GameTime gameTime, IEnumerable<ITile> tiles)
