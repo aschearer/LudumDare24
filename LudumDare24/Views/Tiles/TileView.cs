@@ -1,11 +1,11 @@
-using LudumDare24.Models.Tiles;
+using LudumDare24.Models.Doodads;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare24.Views.Tiles
 {
-    public class TileView : IImmediateControl<ITile>
+    public class TileView : IImmediateControl<IDoodad>
     {
         private readonly TeamView teamView;
         private Texture2D tileTexture;
@@ -20,12 +20,12 @@ namespace LudumDare24.Views.Tiles
             this.tileTexture = content.Load<Texture2D>("Images/Tiles/Normal");
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, ITile dataContext)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, IDoodad dataContext)
         {
             spriteBatch.Draw(
                 this.tileTexture,
-                ScreenHelper.CoordinatesToPixels(dataContext.Column, dataContext.Row),
-                this.teamView.GetColorForTeam(dataContext.Team));
+                ScreenHelper.MetersToPixels(dataContext.Position),
+                Color.White);
         }
     }
 }

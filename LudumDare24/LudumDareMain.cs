@@ -1,3 +1,4 @@
+using LudumDare24.Models;
 using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
@@ -21,6 +22,8 @@ namespace LudumDare24
         public LudumDareMain()
         {
             this.graphics = new GraphicsDeviceManager(this);
+            this.graphics.PreferredBackBufferWidth = Constants.ScreenWidth;
+            this.graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }

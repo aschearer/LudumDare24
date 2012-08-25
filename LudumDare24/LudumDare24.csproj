@@ -60,6 +60,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FarseerPhysicsXNA">
+      <HintPath>ThirdParty\Libs\FarseerPhysicsXNA.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
       <HintPath>..\..\packages\MvvmLightLibs.4.1.23.0\lib\net40\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
     </Reference>
@@ -88,9 +91,14 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\Boards\Board.cs" />
     <Compile Include="Models\Boards\IBoard.cs" />
+    <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\Doodads\Cage.cs" />
+    <Compile Include="Models\Doodads\Crate.cs" />
+    <Compile Include="Models\Levels\Level.cs" />
     <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\Tiles\ITile.cs" />
-    <Compile Include="Models\Tiles\Tile.cs" />
+    <Compile Include="Models\Doodads\IDoodad.cs" />
+    <Compile Include="Models\Doodads\Doodad.cs" />
+    <Compile Include="Models\Doodads\DoodadFactory.cs" />
     <Compile Include="Models\Units\IUnit.cs" />
     <Compile Include="Models\Units\Marker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +109,9 @@
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="Views\ConductorView.cs" />
+    <Compile Include="Views\Farseer\DebugView.cs" />
+    <Compile Include="Views\Farseer\DebugViewXNA.cs" />
+    <Compile Include="Views\Farseer\PrimitiveBatch.cs" />
     <Compile Include="Views\IImmediateControl.cs" />
     <Compile Include="Views\Input\IInputManager.cs" />
     <Compile Include="Views\Input\IKeyboardInputManager.cs" />
