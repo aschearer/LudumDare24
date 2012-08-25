@@ -8,6 +8,7 @@ using LudumDare24.Views;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.States;
 using LudumDare24.Views.Tiles;
+using LudumDare24.Views.Units;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,6 +39,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
             SimpleIoc.Default.Register<TileView>();
+            SimpleIoc.Default.Register<UnitView>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());

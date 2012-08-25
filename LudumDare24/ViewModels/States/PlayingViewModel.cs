@@ -38,6 +38,8 @@ namespace LudumDare24.ViewModels.States
                     this.board.AddTile(new Tile(column, row));
                 }
             }
+
+            this.board.AddUnit(new Marker(0, 0));
         }
     }
 }

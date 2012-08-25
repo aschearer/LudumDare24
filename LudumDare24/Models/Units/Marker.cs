@@ -1,11 +1,11 @@
 ﻿namespace LudumDare24.Models.Units
 {
-    public class Unit : IUnit
+    public class Marker : IUnit
     {
         private readonly int column;
         private readonly int row;
 
-        public Unit(int column, int row)
+        public Marker(int column, int row)
         {
             this.column = column;
             this.row = row;
