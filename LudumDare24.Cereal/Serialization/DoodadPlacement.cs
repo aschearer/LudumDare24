@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace LudumDare24.Models.Doodads
+namespace LudumDare24.Cereal.Serialization
 {
     [DataContract]
     public class DoodadPlacement

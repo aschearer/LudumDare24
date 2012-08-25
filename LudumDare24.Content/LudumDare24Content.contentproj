@@ -28,12 +28,20 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.XImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.AudioImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="TiledLib">
+      <HintPath>..\LudumDare24.ContentPipeline\ThirdParty\Libs\TiledLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Images\Tiles\Normal.png">
       <Name>Normal</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Levels\Level1.tmx">
+      <Name>Level1</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -104,8 +112,12 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Levels\" />
+    <ProjectReference Include="..\LudumDare24.ContentPipeline\LudumDare24.ContentPipeline.csproj">
+      <Project>{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}</Project>
+      <Name>LudumDare24.ContentPipeline</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

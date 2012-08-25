@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudumDare24.ContentPipeline", "LudumDare24.ContentPipeline\LudumDare24.ContentPipeline.csproj", "{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudumDare24.Cereal", "LudumDare24.Cereal\LudumDare24.Cereal.csproj", "{E8C339D7-F8E1-40F1-936F-16E87BD27666}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = LudumDare24.vsmdi
@@ -53,6 +57,28 @@ Global
 		{45E33FCE-35A4-486B-97B3-6DC06233EB7B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{45E33FCE-35A4-486B-97B3-6DC06233EB7B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{45E33FCE-35A4-486B-97B3-6DC06233EB7B}.Release|x86.ActiveCfg = Release|Any CPU
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Debug|Any CPU.Build.0 = Debug|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Debug|x86.ActiveCfg = Debug|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Debug|x86.Build.0 = Debug|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Release|Any CPU.ActiveCfg = Release|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Release|Any CPU.Build.0 = Release|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Release|x86.ActiveCfg = Release|x86
+		{BCAD7EF1-B26B-4657-A2DD-29A7454446A5}.Release|x86.Build.0 = Release|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Debug|x86.ActiveCfg = Debug|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Debug|x86.Build.0 = Debug|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|Any CPU.ActiveCfg = Release|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|x86.ActiveCfg = Release|x86
+		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

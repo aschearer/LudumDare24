@@ -22,7 +22,6 @@ namespace LudumDare24.Views.States
         private readonly ButtonView rotateCounterClockwiseButton;
         private readonly List<DoodadView> doodadViews;
         private bool isContentLoaded;
-        private DoodadPlacement[] placements;
         private Texture2D boardTexture;
 
         public PlayingView(
@@ -53,9 +52,9 @@ namespace LudumDare24.Views.States
             this.rotateClockwiseButton.Activate();
             this.rotateCounterClockwiseButton.Activate();
             this.viewModel.Doodads.CollectionChanged += this.OnDoodadsChanged;
-
             this.LoadContent();
-            this.viewModel.StartNewGameCommand.Execute(this.placements);
+
+            this.viewModel.StartNewGameCommand.Execute(null);
         }
 
         public void NavigateFrom()
@@ -139,14 +138,6 @@ namespace LudumDare24.Views.States
             this.rotateClockwiseButton.LoadContent(this.content);
             this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;
-
-            this.placements = new DoodadPlacement[6];
-            placements[0] = new DoodadPlacement() { Column = 1, Row = 0, DoodadType = typeof(Crate).FullName };
-            placements[1] = new DoodadPlacement() { Column = 1, Row = 2, DoodadType = typeof(Crate).FullName };
-            placements[2] = new DoodadPlacement() { Column = 1, Row = 1, DoodadType = typeof(Crate).FullName };
-            placements[3] = new DoodadPlacement() { Column = 4, Row = 0, DoodadType = typeof(Mouse).FullName };
-            placements[4] = new DoodadPlacement() { Column = 0, Row = 0, DoodadType = typeof(Cheese).FullName };
-            placements[5] = new DoodadPlacement() { Column = 3, Row = 1, DoodadType = typeof(Peg).FullName };
         }
     }
 }
