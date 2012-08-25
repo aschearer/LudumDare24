@@ -1,8 +1,8 @@
 namespace LudumDare24.Models.Doodads
 {
-    public class Cheese : Doodad
+    public class Balloon : Doodad
     {
-        public Cheese(int column, int row)
+        public Balloon(int column, int row)
             : base(column, row)
         {
         }

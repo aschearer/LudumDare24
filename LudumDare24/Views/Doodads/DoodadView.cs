@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using LudumDare24.Models;
 using LudumDare24.Models.Doodads;
 using Microsoft.Xna.Framework;
@@ -8,46 +6,43 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare24.Views.Doodads
 {
-    public class DoodadView : IImmediateControl<IDoodad>
+    public class DoodadView : IRetainedControl
     {
-        private Dictionary<Type, Texture2D> textures;
-        private Dictionary<Type, Vector2> origins;
+        private readonly IDoodad doodad;
+        private Texture2D texture;
+        private Vector2 origin;
+        private Vector2 position;
+
+        public DoodadView(IDoodad doodad)
+        {
+            this.doodad = doodad;
+            this.position = new Vector2(
+                Constants.TileSize * doodad.Column + Constants.TileHalfSize,
+                Constants.TileSize * doodad.Row + Constants.TileHalfSize);
+        }
 
         public void LoadContent(ContentManager content)
         {
-            this.textures = new Dictionary<Type, Texture2D>();
-            this.textures[typeof(Cage)] = content.Load<Texture2D>("Images/Doodads/Cage");
-            this.textures[typeof(Crate)] = content.Load<Texture2D>("Images/Doodads/Crate");
-            this.textures[typeof(Mouse)] = content.Load<Texture2D>("Images/Doodads/Mouse");
-            this.textures[typeof(Cheese)] = content.Load<Texture2D>("Images/Doodads/Cheese");
-            this.textures[typeof(Cat)] = content.Load<Texture2D>("Images/Doodads/Cat");
-            this.textures[typeof(Peg)] = content.Load<Texture2D>("Images/Doodads/Peg");
-            this.textures[typeof(Balloon)] = content.Load<Texture2D>("Images/Doodads/Balloon");
-
-            this.origins = new Dictionary<Type, Vector2>();
-            this.origins[typeof(Cage)] = new Vector2(this.textures[typeof(Cage)].Width / 2f, this.textures[typeof(Cage)].Height / 2f);
-            this.origins[typeof(Crate)] = new Vector2(this.textures[typeof(Crate)].Width / 2f, this.textures[typeof(Crate)].Height / 2f);
-            this.origins[typeof(Mouse)] = new Vector2(this.textures[typeof(Mouse)].Width / 2f, this.textures[typeof(Mouse)].Height / 2f);
-            this.origins[typeof(Cheese)] = new Vector2(this.textures[typeof(Cheese)].Width / 2f, this.textures[typeof(Cheese)].Height / 2f);
-            this.origins[typeof(Cat)] = new Vector2(this.textures[typeof(Cat)].Width / 2f, this.textures[typeof(Cat)].Height / 2f);
-            this.origins[typeof(Peg)] = new Vector2(this.textures[typeof(Peg)].Width / 2f, this.textures[typeof(Peg)].Height / 2f);
-            this.origins[typeof(Peg)] = new Vector2(this.textures[typeof(Balloon)].Width / 2f, this.textures[typeof(Balloon)].Height / 2f);
+            this.texture = content.Load<Texture2D>("Images/Doodads/" + this.doodad.GetType().Name);
+            this.origin = new Vector2(this.texture.Width / 2f, this.texture.Height / 2f);
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, IDoodad dataContext)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Texture2D texture = this.textures[dataContext.GetType()];
-            Vector2 origin = this.origins[dataContext.GetType()];
             spriteBatch.Draw(
-                texture,
-                dataContext.Position * Constants.PixelsPerMeter,
+                this.texture,
+                this.position,
                 null,
                 Color.White,
-                dataContext.Rotation,
-                origin,
+                0,
+                this.origin,
                 1,
                 SpriteEffects.None,
                 0);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

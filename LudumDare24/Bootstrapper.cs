@@ -8,11 +8,8 @@ using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Doodads;
-using LudumDare24.Views.Farseer;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.States;
-using LudumDare24.Views.Tiles;
-using LudumDare24.Views.Units;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -46,7 +43,6 @@ namespace LudumDare24
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
             SimpleIoc.Default.Register<DoodadView>();
-            SimpleIoc.Default.Register<DebugViewXNA>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());

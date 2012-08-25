@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using GalaSoft.MvvmLight.Command;
 using LudumDare24.Models;
 using LudumDare24.Models.Doodads;
-using LudumDare24.Models.Units;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views.Doodads;
-using LudumDare24.Views.Farseer;
 using LudumDare24.Views.Input;
-using LudumDare24.Views.Tiles;
-using LudumDare24.Views.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,29 +17,24 @@ namespace LudumDare24.Views.States
     {
         private readonly SpriteBatch spriteBatch;
         private readonly ContentManager content;
-        private readonly IInputManager inputManager;
-        private readonly DoodadView doodadView;
-        private readonly DebugViewXNA debugView;
         private readonly PlayingViewModel viewModel;
         private readonly ButtonView rotateClockwiseButton;
         private readonly ButtonView rotateCounterClockwiseButton;
+        private readonly List<DoodadView> doodadViews;
         private bool isContentLoaded;
         private DoodadPlacement[] placements;
+        private Texture2D boardTexture;
 
         public PlayingView(
             SpriteBatch spriteBatch, 
             ContentManager content, 
             IInputManager inputManager,
-            DoodadView doodadView,
-            DebugViewXNA debugView,
             PlayingViewModel viewModel)
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
-            this.inputManager = inputManager;
-            this.doodadView = doodadView;
-            this.debugView = debugView;
             this.viewModel = viewModel;
+            this.doodadViews = new List<DoodadView>();
             this.rotateClockwiseButton = new ButtonView(
                 inputManager,
                 "Images/Playing/RotateClockwise",
@@ -58,16 +50,19 @@ namespace LudumDare24.Views.States
 
         public void NavigateTo()
         {
-            this.LoadContent();
-            this.viewModel.StartNewGameCommand.Execute(this.placements);
             this.rotateClockwiseButton.Activate();
             this.rotateCounterClockwiseButton.Activate();
+            this.viewModel.Doodads.CollectionChanged += this.OnDoodadsChanged;
+
+            this.LoadContent();
+            this.viewModel.StartNewGameCommand.Execute(this.placements);
         }
 
         public void NavigateFrom()
         {
             this.rotateClockwiseButton.Deactivate();
             this.rotateCounterClockwiseButton.Deactivate();
+            this.viewModel.Doodads.CollectionChanged -= this.OnDoodadsChanged;
         }
 
         public void Update(GameTime gameTime)
@@ -78,7 +73,7 @@ namespace LudumDare24.Views.States
         public void Draw(GameTime gameTime)
         {
             Matrix rotationMatrix =
-                Matrix.CreateTranslation(-Cage.HalfSize * Constants.PixelsPerMeter, -Cage.HalfSize * Constants.PixelsPerMeter, 0) *
+                Matrix.CreateTranslation(-Constants.GameAreaHalfSize, -Constants.GameAreaHalfSize, 0) *
                 Matrix.CreateRotationZ(this.viewModel.Rotation) *
                 Matrix.CreateTranslation(Constants.ScreenWidth / 2f, Constants.ScreenHeight / 2f, 0);
             this.spriteBatch.Begin(
@@ -89,31 +84,47 @@ namespace LudumDare24.Views.States
                 null,
                 null,
                 rotationMatrix);
-            this.DrawDoodads(gameTime, this.viewModel.Doodads);
+
+            foreach (DoodadView doodadView in this.doodadViews)
+            {
+                doodadView.Draw(gameTime, this.spriteBatch);
+            }
+
+            this.spriteBatch.Draw(
+                this.boardTexture,
+                Vector2.Zero,
+                Color.White);
+
             this.spriteBatch.End();
 
             this.spriteBatch.Begin();
             this.rotateClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.rotateCounterClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
-
-            var matrix = Matrix.CreateOrthographicOffCenter(
-                            0,
-                            Constants.ScreenWidth / Constants.PixelsPerMeter,
-                            Constants.ScreenHeight / Constants.PixelsPerMeter,
-                            0f,
-                            0f,
-                            1f);
-            //matrix * Matrix.CreateRotationZ(this.viewModel.Rotation);
-
-            //this.debugView.RenderDebugData(ref matrix);
         }
 
-        private void DrawDoodads(GameTime gameTime, IEnumerable<IDoodad> doodads)
+        private void OnDoodadsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (IDoodad doodad in doodads)
+            switch (e.Action)
             {
-                this.doodadView.Draw(gameTime, this.spriteBatch, doodad);
+                case NotifyCollectionChangedAction.Add:
+                    foreach (IDoodad doodad in e.NewItems)
+                    {
+                        var view = new DoodadView(doodad);
+                        view.LoadContent(this.content);
+                        this.doodadViews.Add(view);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    foreach (DoodadView view in this.doodadViews)
+                    {
+                        view.Dispose();
+                    }
+
+                    this.doodadViews.Clear();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -124,8 +135,7 @@ namespace LudumDare24.Views.States
                 return;
             }
 
-            this.doodadView.LoadContent(this.content);
-            this.debugView.LoadContent(this.spriteBatch.GraphicsDevice, this.content);
+            this.boardTexture = this.content.Load<Texture2D>("Images/Doodads/Cage");
             this.rotateClockwiseButton.LoadContent(this.content);
             this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;
