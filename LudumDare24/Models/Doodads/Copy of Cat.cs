@@ -6,18 +6,18 @@ using Microsoft.Xna.Framework;
 
 namespace LudumDare24.Models.Doodads
 {
-    public class Balloon : IDoodad
+    public class Cat : IDoodad
     {
         private const float Size = 50f / Constants.PixelsPerMeter;
 
         private readonly Body body;
 
-        public Balloon(World world, Vector2 position)
+        public Cat(World world, Vector2 position)
         {
             this.body = BodyFactory.CreateBody(world, position, this);
             this.body.BodyType = BodyType.Dynamic;
             PolygonShape shape = new PolygonShape(0.2f);
-            shape.SetAsBox(Balloon.Size, Balloon.Size);
+            shape.SetAsBox(Cat.Size, Cat.Size);
             Fixture fixture = this.body.CreateFixture(shape);
         }
 

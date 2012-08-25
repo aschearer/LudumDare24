@@ -21,6 +21,8 @@ namespace LudumDare24.Views.Doodads
             this.textures[typeof(Mouse)] = content.Load<Texture2D>("Images/Doodads/Mouse");
             this.textures[typeof(Cheese)] = content.Load<Texture2D>("Images/Doodads/Cheese");
             this.textures[typeof(Cat)] = content.Load<Texture2D>("Images/Doodads/Cat");
+            this.textures[typeof(Peg)] = content.Load<Texture2D>("Images/Doodads/Peg");
+            this.textures[typeof(Balloon)] = content.Load<Texture2D>("Images/Doodads/Balloon");
 
             this.origins = new Dictionary<Type, Vector2>();
             this.origins[typeof(Cage)] = new Vector2(this.textures[typeof(Cage)].Width / 2f, this.textures[typeof(Cage)].Height / 2f);
@@ -28,6 +30,8 @@ namespace LudumDare24.Views.Doodads
             this.origins[typeof(Mouse)] = new Vector2(this.textures[typeof(Mouse)].Width / 2f, this.textures[typeof(Mouse)].Height / 2f);
             this.origins[typeof(Cheese)] = new Vector2(this.textures[typeof(Cheese)].Width / 2f, this.textures[typeof(Cheese)].Height / 2f);
             this.origins[typeof(Cat)] = new Vector2(this.textures[typeof(Cat)].Width / 2f, this.textures[typeof(Cat)].Height / 2f);
+            this.origins[typeof(Peg)] = new Vector2(this.textures[typeof(Peg)].Width / 2f, this.textures[typeof(Peg)].Height / 2f);
+            this.origins[typeof(Peg)] = new Vector2(this.textures[typeof(Balloon)].Width / 2f, this.textures[typeof(Balloon)].Height / 2f);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, IDoodad dataContext)

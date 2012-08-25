@@ -130,12 +130,13 @@ namespace LudumDare24.Views.States
             this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;
 
-            this.placements = new DoodadPlacement[5];
+            this.placements = new DoodadPlacement[6];
             placements[0] = new DoodadPlacement() { Column = 1, Row = 0, DoodadType = typeof(Crate).FullName };
-            placements[1] = new DoodadPlacement() { Column = 2, Row = 2, DoodadType = typeof(Crate).FullName };
+            placements[1] = new DoodadPlacement() { Column = 1, Row = 2, DoodadType = typeof(Crate).FullName };
             placements[2] = new DoodadPlacement() { Column = 1, Row = 1, DoodadType = typeof(Crate).FullName };
             placements[3] = new DoodadPlacement() { Column = 4, Row = 0, DoodadType = typeof(Mouse).FullName };
             placements[4] = new DoodadPlacement() { Column = 0, Row = 0, DoodadType = typeof(Cheese).FullName };
+            placements[5] = new DoodadPlacement() { Column = 3, Row = 1, DoodadType = typeof(Peg).FullName };
         }
     }
 }
