@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="5" height="5" tilewidth="100" tileheight="100">
+ <tileset firstgid="1" name="Doodads" tilewidth="100" tileheight="100">
+  <image source="Doodads.png" width="1000" height="100"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="5" height="5">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAPWJHYLFjk0cUYoWLMSGIAA6AAFg==
+  </data>
+ </layer>
+</map>
