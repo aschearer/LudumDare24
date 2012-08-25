@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FarseerPhysics.Dynamics;
 using GalaSoft.MvvmLight.Ioc;
 using LudumDare24.Models.Boards;
 using LudumDare24.Models.Doodads;
@@ -7,9 +8,13 @@ using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Doodads;
+using LudumDare24.Views.Farseer;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.States;
+using LudumDare24.Views.Tiles;
+using LudumDare24.Views.Units;
 using Microsoft.Practices.ServiceLocation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -27,6 +32,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register(() => new Random());
 
             // Models
+            SimpleIoc.Default.Register<World>(() => new World(new Vector2(0, 60f/ 3)));
             SimpleIoc.Default.Register<IBoard, Board>();
             SimpleIoc.Default.Register<DoodadFactory>();
 
@@ -40,6 +46,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
             SimpleIoc.Default.Register<DoodadView>();
+            SimpleIoc.Default.Register<DebugViewXNA>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());
