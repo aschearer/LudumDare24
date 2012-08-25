@@ -9,5 +9,7 @@ namespace LudumDare24.Models
         public const int GameAreaHalfSize = Constants.GameAreaSize / 2;
         public const int TileSize = 100;
         public const int TileHalfSize = Constants.TileSize / 2;
+        public const int NumberOfColumns = 5;
+        public const int NumberOfRows = 5;
     }
 }

@@ -14,14 +14,16 @@ namespace LudumDare24.ViewModels.States
     {
         private readonly IBoard board;
         private readonly DoodadFactory doodadFactory;
+        private readonly BoardPacker boardPacker;
         private float targetRotation;
         private bool rotateClockwise;
         private Vector2 gravity;
 
-        public PlayingViewModel(IBoard board, DoodadFactory doodadFactory)
+        public PlayingViewModel(IBoard board, DoodadFactory doodadFactory, BoardPacker boardPacker)
         {
             this.board = board;
             this.doodadFactory = doodadFactory;
+            this.boardPacker = boardPacker;
             this.StartNewGameCommand = new RelayCommand<IEnumerable<DoodadPlacement>>(this.StartNewGame);
         }
 
@@ -36,6 +38,7 @@ namespace LudumDare24.ViewModels.States
 
         public void Update(GameTime gameTime)
         {
+            this.boardPacker.Pack();
             foreach (IDoodad doodad in this.Doodads)
             {
                 doodad.Update(gameTime);

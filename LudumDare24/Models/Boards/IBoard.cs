@@ -5,6 +5,8 @@ namespace LudumDare24.Models.Boards
 {
     public interface IBoard
     {
+        int NumberOfRows { get; }
+        int NumberOfColumns { get; }
         ObservableCollection<IDoodad> Doodads { get; }
     }
 }

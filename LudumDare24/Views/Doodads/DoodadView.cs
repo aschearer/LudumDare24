@@ -29,6 +29,10 @@ namespace LudumDare24.Views.Doodads
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            this.position = new Vector2(
+                Constants.TileSize * doodad.Column + Constants.TileHalfSize,
+                Constants.TileSize * doodad.Row + Constants.TileHalfSize);
+
             spriteBatch.Draw(
                 this.texture,
                 this.position,

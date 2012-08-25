@@ -4,8 +4,8 @@ namespace LudumDare24.Models.Doodads
 {
     public interface IDoodad
     {
-        int Column { get; }
-        int Row { get; }
+        int Column { get; set; }
+        int Row { get; set; }
 
         void Update(GameTime gameTime);
     }

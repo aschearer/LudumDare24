@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using GalaSoft.MvvmLight.Ioc;
+using LudumDare24.Models;
 using LudumDare24.Models.Boards;
 using LudumDare24.Models.Doodads;
 using LudumDare24.ViewModels;
@@ -30,7 +31,8 @@ namespace LudumDare24
 
             // Models
             SimpleIoc.Default.Register<World>(() => new World(new Vector2(0, 60f/ 3)));
-            SimpleIoc.Default.Register<IBoard, Board>();
+            SimpleIoc.Default.Register<IBoard>(() => new Board(Constants.NumberOfColumns, Constants.NumberOfRows));
+            SimpleIoc.Default.Register<BoardPacker>();
             SimpleIoc.Default.Register<DoodadFactory>();
 
             // View Models

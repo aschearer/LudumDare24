@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\Boards\Board.cs" />
+    <Compile Include="Models\Boards\BoardPacker.cs" />
     <Compile Include="Models\Boards\IBoard.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Doodads\Cheese.cs" />

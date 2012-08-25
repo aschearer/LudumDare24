@@ -7,10 +7,16 @@ namespace LudumDare24.Models.Boards
     {
         private readonly ObservableCollection<IDoodad> doodads;
 
-        public Board()
+        public Board(int columns, int rows)
         {
+            this.NumberOfColumns = columns;
+            this.NumberOfRows = rows;
             this.doodads = new ObservableCollection<IDoodad>();
         }
+
+        public int NumberOfColumns { get; private set; }
+
+        public int NumberOfRows { get; private set; }
 
         public ObservableCollection<IDoodad> Doodads
         {
