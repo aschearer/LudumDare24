@@ -23,6 +23,7 @@ namespace LudumDare24.Views.States
         private readonly List<DoodadView> doodadViews;
         private bool isContentLoaded;
         private Texture2D boardTexture;
+        private Texture2D stencilTexture;
 
         public PlayingView(
             SpriteBatch spriteBatch, 
@@ -71,6 +72,29 @@ namespace LudumDare24.Views.States
 
         public void Draw(GameTime gameTime)
         {
+
+            //DepthStencilState stencilState = new DepthStencilState();
+            //stencilState.StencilEnable = true;
+            //stencilState.DepthBufferEnable = false;
+            //stencilState.StencilFunction = CompareFunction.GreaterEqual;
+            //stencilState.StencilPass = StencilOperation.Replace;
+            //stencilState.ReferenceStencil = 1;
+
+            //this.spriteBatch.Begin(
+            //    SpriteSortMode.Deferred,
+            //    null,
+            //    null,
+            //    null, // stencilState,
+            //    null);
+            //this.spriteBatch.Draw(this.stencilTexture, new Vector2(300, 300), Color.White);
+            //this.spriteBatch.End();
+
+            //DepthStencilState spotlightStencil = new DepthStencilState();
+            //spotlightStencil.StencilEnable = true;
+            //spotlightStencil.StencilFunction = CompareFunction.LessEqual;
+            //spotlightStencil.StencilPass = StencilOperation.Keep;
+            //spotlightStencil.ReferenceStencil = 1;
+
             Matrix rotationMatrix =
                 Matrix.CreateTranslation(-Constants.GameAreaHalfSize, -Constants.GameAreaHalfSize, 0) *
                 Matrix.CreateRotationZ(this.viewModel.Rotation) *
@@ -79,7 +103,7 @@ namespace LudumDare24.Views.States
                 SpriteSortMode.Deferred,
                 null,
                 null,
-                null,
+                null, //spotlightStencil,
                 null,
                 null,
                 rotationMatrix);
@@ -135,6 +159,7 @@ namespace LudumDare24.Views.States
             }
 
             this.boardTexture = this.content.Load<Texture2D>("Images/Doodads/Cage");
+            this.stencilTexture = this.content.Load<Texture2D>("Images/Playing/Mask");
             this.rotateClockwiseButton.LoadContent(this.content);
             this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;

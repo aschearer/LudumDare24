@@ -19,7 +19,7 @@ namespace LudumDare24.Models.Levels
             this.content = content;
             this.board = board;
             this.doodadFactory = doodadFactory;
-            this.currentLevel = 9;
+            this.currentLevel = 5;
         }
 
         public void AdvanceToNextLevel()

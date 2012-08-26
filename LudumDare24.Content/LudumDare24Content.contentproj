@@ -38,11 +38,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Levels\Level1.tmx">
-      <Name>Level1</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>LevelProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Images\Units\Marker.png">
@@ -113,8 +108,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\Level3.tmx">
-      <Name>Level3</Name>
+    <Compile Include="Levels\Level2.tmx">
+      <Name>Level2</Name>
       <Importer>TmxImporter</Importer>
       <Processor>LevelProcessor</Processor>
     </Compile>
@@ -126,8 +121,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\Level2.tmx">
-      <Name>Level2</Name>
+    <Compile Include="Levels\Level1.tmx">
+      <Name>Level1</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>LevelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level3.tmx">
+      <Name>Level3</Name>
       <Importer>TmxImporter</Importer>
       <Processor>LevelProcessor</Processor>
     </Compile>
@@ -168,10 +170,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\Level9.tmx">
-      <Name>Level9</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>LevelProcessor</Processor>
+    <Compile Include="Images\Playing\Mask.png">
+      <Name>Mask</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
