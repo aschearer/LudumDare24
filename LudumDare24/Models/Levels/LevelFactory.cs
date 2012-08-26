@@ -30,6 +30,11 @@ namespace LudumDare24.Models.Levels
         public void AdvanceToNextLevel()
         {
             this.currentLevel++;
+            if (this.currentLevel > 12)
+            {
+                this.currentLevel = 1;
+            }
+
             this.LoadLevel();
         }
 
