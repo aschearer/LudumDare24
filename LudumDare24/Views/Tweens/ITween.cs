@@ -17,8 +17,10 @@ namespace LudumDare24.Views.Tweens
         bool IsPaused { get; set; }
         bool IsFinished { get; }
         bool IsRunning { get; }
+        bool IsReversed { get; }
 
         void Update(GameTime gameTime);
         void Restart();
+        void Reverse();
     }
 }

@@ -40,6 +40,8 @@ namespace LudumDare24.Views.Tweens
             get { return !this.IsPaused && !this.IsFinished; }
         }
 
+        public bool IsReversed { get; private set; }
+
         public void Update(GameTime gameTime)
         {
             if (this.IsPaused)
@@ -88,6 +90,7 @@ namespace LudumDare24.Views.Tweens
         /// </summary>
         public void Reverse()
         {
+            this.IsReversed = !this.IsReversed;
             float originalStart = this.start;
             this.start = this.target;
             this.target = originalStart;

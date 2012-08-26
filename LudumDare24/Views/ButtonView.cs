@@ -131,8 +131,12 @@ namespace LudumDare24.Views
         {
             if (this.IsVisible && this.Command != null && this.Command.CanExecute(null) && this.bounds.Contains(e.X, e.Y))
             {
-                //this.scaleTween.Restart();
-                this.scaleTween.IsPaused = false;
+                if (this.scaleTween.IsReversed)
+                {
+                    this.scaleTween.Reverse();
+                }
+
+                this.scaleTween.Restart();
                 this.inputManager.DragEnded += this.OnDragEnded;
             }
         }
@@ -144,8 +148,8 @@ namespace LudumDare24.Views
                 return;
             }
 
-            //this.scaleTween.Reverse();
-            this.scaleTween.IsPaused = false;
+            this.scaleTween.Reverse();
+            this.scaleTween.Restart();
             this.inputManager.DragEnded -= this.OnDragEnded;
             if (this.Command != null && this.Command.CanExecute(null) && this.bounds.Contains(e.X, e.Y))
             {
@@ -163,8 +167,8 @@ namespace LudumDare24.Views
             if (this.Command != null && this.Command.CanExecute(null) && this.bounds.Contains(e.X, e.Y))
             {
                 this.Execute();
-                //this.scaleTween.Reverse();
-                this.scaleTween.IsPaused = false;
+                this.scaleTween.Reverse();
+                this.scaleTween.Restart();
                 this.inputManager.DragEnded -= this.OnDragEnded;
             }
         }
