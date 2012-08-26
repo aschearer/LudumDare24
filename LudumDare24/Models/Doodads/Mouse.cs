@@ -17,13 +17,14 @@ namespace LudumDare24.Models.Doodads
         public override void Update(IEnumerable<IDoodad> doodads)
         {
             var neighbors = this.GetNeighbors(doodads);
-            if (neighbors.Any(neighbor => neighbor is Cheese))
-            {
-                this.GotTheCheese = true;
-            }
-            else if (neighbors.Any(neighbor => neighbor is Cat))
+            
+            if (neighbors.Any(neighbor => neighbor is Cat))
             {
                 this.CaughtByCat = true;
+            }
+            else if (neighbors.Any(neighbor => neighbor is Cheese))
+            {
+                this.GotTheCheese = true;
             }
         }
 

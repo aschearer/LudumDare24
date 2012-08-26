@@ -99,15 +99,15 @@ namespace LudumDare24.ViewModels.States
                 }
 
                 Mouse mouse = (Mouse)this.Doodads.First(doodad => doodad is Mouse);
-                if (mouse.GotTheCheese)
+                if (mouse.CaughtByCat)
                 {
-                    this.levelCleared = true;
+                    this.levelCleared = false;
                     this.animateLevelComplete = true;
                     this.spinTimer = TimeSpan.Zero;
                 }
-                else if (mouse.CaughtByCat)
+                else if (mouse.GotTheCheese)
                 {
-                    this.levelCleared = false;
+                    this.levelCleared = true;
                     this.animateLevelComplete = true;
                     this.spinTimer = TimeSpan.Zero;
                 }
