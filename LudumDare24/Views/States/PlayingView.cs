@@ -7,6 +7,7 @@ using LudumDare24.Models.Doodads;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Input;
+using LudumDare24.Views.Tweens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,6 +22,8 @@ namespace LudumDare24.Views.States
         private readonly ButtonView rotateClockwiseButton;
         private readonly ButtonView rotateCounterClockwiseButton;
         private readonly List<DoodadView> doodadViews;
+        private readonly ITween translateOutTween;
+        private readonly ITween translateInTween;
         private bool isContentLoaded;
         private Texture2D boardTexture;
         private Texture2D stencilTexture;
@@ -46,6 +49,12 @@ namespace LudumDare24.Views.States
                 "Images/Playing/RotateCounterClockwise",
                 new Vector2(100, Constants.ScreenHeight / 2));
             this.rotateCounterClockwiseButton.Command = new RelayCommand(() => this.viewModel.Rotate(false));
+
+            this.translateOutTween = TweenFactory.Tween(0, Constants.ScreenHeight, TimeSpan.FromSeconds(0.75f));
+            this.translateOutTween.IsPaused = true;
+
+            this.translateInTween = TweenFactory.Tween(Constants.ScreenHeight, 0, TimeSpan.FromSeconds(0.75f));
+            this.translateInTween.IsPaused = true;
         }
 
         public void NavigateTo()
@@ -95,10 +104,39 @@ namespace LudumDare24.Views.States
             //spotlightStencil.StencilPass = StencilOperation.Keep;
             //spotlightStencil.ReferenceStencil = 1;
 
+            float yOffset = Constants.ScreenHeight / 2f;
+            if (this.viewModel.IsLevelComplete)
+            {
+                if (!this.translateInTween.IsRunning && (this.translateOutTween.IsPaused || this.translateOutTween.IsFinished))
+                {
+                    this.translateOutTween.Restart();
+                }
+
+                if (!this.translateOutTween.IsFinished)
+                {
+                    this.translateOutTween.Update(gameTime);
+                    yOffset = Constants.ScreenHeight / 2f - this.translateOutTween.Value;
+                    if (this.translateOutTween.IsFinished)
+                    {
+                        this.translateInTween.Restart();
+                        this.viewModel.AdvanceLevelCommand.Execute(null);
+                    }
+                }
+                else
+                {
+                    this.translateInTween.Update(gameTime);
+                    yOffset = Constants.ScreenHeight / 2f + this.translateInTween.Value;
+                    if (this.translateInTween.IsFinished)
+                    {
+                        this.viewModel.StartLevelCommand.Execute(null);
+                    }
+                }
+            }
+
             Matrix rotationMatrix =
                 Matrix.CreateTranslation(-Constants.GameAreaHalfSize, -Constants.GameAreaHalfSize, 0) *
                 Matrix.CreateRotationZ(this.viewModel.Rotation) *
-                Matrix.CreateTranslation(Constants.ScreenWidth / 2f, Constants.ScreenHeight / 2f, 0);
+                Matrix.CreateTranslation(Constants.ScreenWidth / 2f, yOffset, 0);
             this.spriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 null,

@@ -19,6 +19,10 @@ namespace LudumDare24.ViewModels.States
         private float targetRotation;
         private bool rotateClockwise;
         private TimeSpan cooldownTimer;
+        private bool animateLevelComplete;
+        private bool animateLevelStart;
+        private TimeSpan spinTimer;
+        private TimeSpan spinInTimer;
 
         public PlayingViewModel(
             IBoard board, 
@@ -29,11 +33,19 @@ namespace LudumDare24.ViewModels.States
             this.boardPacker = boardPacker;
             this.levelFactory = levelFactory;
             this.StartNewGameCommand = new RelayCommand(this.StartNewGame);
+            this.AdvanceLevelCommand = new RelayCommand(this.AdvanceToNewLevel);
+            this.StartLevelCommand = new RelayCommand(this.StartLevel);
         }
 
         public ICommand StartNewGameCommand { get; private set; }
 
+        public ICommand AdvanceLevelCommand { get; private set; }
+
+        public ICommand StartLevelCommand { get; private set; }
+
         public float Rotation { get; private set; }
+
+        public bool IsLevelComplete { get; set; }
 
         public ObservableCollection<IDoodad> Doodads
         {
@@ -42,6 +54,28 @@ namespace LudumDare24.ViewModels.States
 
         public void Update(GameTime gameTime)
         {
+            if (this.animateLevelStart)
+            {
+                this.spinInTimer += gameTime.ElapsedGameTime;
+                float theta = (float)(2 * MathHelper.Pi * (this.spinInTimer.TotalSeconds / 0.75f));
+                this.Rotation = this.rotateClockwise ? theta : -theta;
+
+                return;
+            }
+
+            if (this.animateLevelComplete)
+            {
+                float thetaSpeed = MathHelper.Pi / 25;
+                this.Rotation += thetaSpeed * (this.rotateClockwise ? 1 : -1);
+                this.spinTimer += gameTime.ElapsedGameTime;
+                if (this.spinTimer > TimeSpan.FromSeconds(0.5f))
+                {
+                    this.IsLevelComplete = true;
+                }
+
+                return;
+            }
+
             this.boardPacker.Pack(this.board.Doodads, this.Rotation);
 
             if (Math.Abs(this.Rotation - this.targetRotation) > 0.01f)
@@ -66,10 +100,8 @@ namespace LudumDare24.ViewModels.States
                 Mouse mouse = (Mouse)this.Doodads.First(doodad => doodad is Mouse);
                 if (mouse.GotTheCheese)
                 {
-                    this.levelFactory.AdvanceToNextLevel();
-                    this.levelFactory.LoadLevel();
-                    this.Rotation = 0;
-                    this.targetRotation = 0;
+                    this.animateLevelComplete = true;
+                    this.spinTimer = TimeSpan.Zero;
                 }
                 else if (mouse.CaughtByCat)
                 {
@@ -94,6 +126,24 @@ namespace LudumDare24.ViewModels.States
         private void StartNewGame()
         {
             this.levelFactory.LoadLevel();
+        }
+
+        private void AdvanceToNewLevel()
+        {
+            this.levelFactory.AdvanceToNextLevel();
+            this.spinInTimer = TimeSpan.Zero;
+            this.Rotation = 0;
+            this.animateLevelStart = true;
+            this.animateLevelComplete = false;
+        }
+
+        private void StartLevel()
+        {
+            this.cooldownTimer = TimeSpan.Zero;
+            this.Rotation = 0;
+            this.targetRotation = 0;
+            this.IsLevelComplete = false;
+            this.animateLevelStart = false;
         }
 
         public void Rotate(bool clockwise)

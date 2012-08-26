@@ -15,7 +15,10 @@ namespace LudumDare24.Views.Tweens
         Repeat Repeats { get; set; }
         bool YoYos { get; set; }
         bool IsPaused { get; set; }
+        bool IsFinished { get; }
+        bool IsRunning { get; }
 
         void Update(GameTime gameTime);
+        void Restart();
     }
 }

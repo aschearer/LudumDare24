@@ -30,6 +30,16 @@ namespace LudumDare24.Views.Tweens
 
         public bool IsPaused { get; set; }
 
+        public bool IsFinished
+        {
+            get { return this.elapsedTime >= this.targetRunTime; }
+        }
+
+        public bool IsRunning
+        {
+            get { return !this.IsPaused && !this.IsFinished; }
+        }
+
         public void Update(GameTime gameTime)
         {
             if (this.IsPaused)
@@ -63,6 +73,14 @@ namespace LudumDare24.Views.Tweens
                     this.Value = this.target;
                 }
             }
+        }
+
+        public void Restart()
+        {
+            this.IsPaused = false;
+            this.elapsedTime = TimeSpan.Zero;
+            this.currentIteration = 0;
+            this.Value = this.start;
         }
 
         /// <summary>
