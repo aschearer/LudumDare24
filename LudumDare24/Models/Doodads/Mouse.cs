@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LudumDare24.Models.Boards;
-using Microsoft.Xna.Framework;
 
 namespace LudumDare24.Models.Doodads
 {
@@ -16,9 +14,9 @@ namespace LudumDare24.Models.Doodads
         public bool GotTheCheese { get; private set; }
         public bool CaughtByCat { get; private set; }
 
-        public override void Update(GameTime gameTime, IBoard board)
+        public override void Update(IEnumerable<IDoodad> doodads)
         {
-            var neighbors = this.GetNeighbors(board);
+            var neighbors = this.GetNeighbors(doodads);
             if (neighbors.Any(neighbor => neighbor is Cheese))
             {
                 this.GotTheCheese = true;
@@ -29,9 +27,9 @@ namespace LudumDare24.Models.Doodads
             }
         }
 
-        private IEnumerable<IDoodad> GetNeighbors(IBoard board)
+        private IEnumerable<IDoodad> GetNeighbors(IEnumerable<IDoodad> doodads)
         {
-            return from doodad in board.Doodads
+            return from doodad in doodads
                    where Math.Abs(doodad.Column - this.Column) + Math.Abs(doodad.Row - this.Row) == 1
                    select doodad;
         }

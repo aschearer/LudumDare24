@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using LudumDare24.Models.Doodads;
 
@@ -6,14 +7,16 @@ namespace LudumDare24.Models.Boards
 {
     public class BoardPacker
     {
-        private readonly IBoard board;
+        private readonly int numberOfColumns;
+        private readonly int numberOfRows;
 
-        public BoardPacker(IBoard board)
+        public BoardPacker(int numberOfColumns, int numberOfRows)
         {
-            this.board = board;
+            this.numberOfColumns = numberOfColumns;
+            this.numberOfRows = numberOfRows;
         }
 
-        public void Pack(float rotation)
+        public void Pack(IEnumerable<IDoodad> doodads, float rotation)
         {
             float cos = (float)Math.Cos(rotation);
             float sin = (float)Math.Sin(rotation);
@@ -30,24 +33,24 @@ namespace LudumDare24.Models.Boards
             {
                 doodadFetcher =
                     (column, row) =>
-                    this.board.Doodads.FirstOrDefault(doodad => doodad.Column == column && doodad.Row == row);
+                    doodads.FirstOrDefault(doodad => doodad.Column == column && doodad.Row == row);
                 if (Math.Sign(cos) > 0)
                 {
                     acrossStart = 0;
-                    acrossEnd = this.board.NumberOfColumns - 1;
+                    acrossEnd = this.numberOfColumns - 1;
                     acrossDelta = 1;
-                    downStart = this.board.NumberOfRows - 1;
+                    downStart = this.numberOfRows - 1;
                     downEnd = 0;
                     downDelta = -1;
                     doodadMover = (doodad, delta) => doodad.Row += delta;
                 }
                 else
                 {
-                    acrossStart = this.board.NumberOfColumns - 1;
+                    acrossStart = this.numberOfColumns - 1;
                     acrossEnd = 0;
                     acrossDelta = -1;
                     downStart = 0;
-                    downEnd = this.board.NumberOfRows - 1;
+                    downEnd = this.numberOfRows - 1;
                     downDelta = 1;
                     doodadMover = (doodad, delta) => doodad.Row -= delta;
                 }
@@ -56,24 +59,24 @@ namespace LudumDare24.Models.Boards
             {
                 doodadFetcher =
                     (column, row) =>
-                    this.board.Doodads.FirstOrDefault(doodad => doodad.Column == row && doodad.Row == column);
+                    doodads.FirstOrDefault(doodad => doodad.Column == row && doodad.Row == column);
                 if (Math.Sign(sin) > 0)
                 {
                     acrossStart = 0;
-                    acrossEnd = this.board.NumberOfRows - 1;
+                    acrossEnd = this.numberOfRows - 1;
                     acrossDelta = 1;
-                    downStart = this.board.NumberOfColumns - 1;
+                    downStart = this.numberOfColumns - 1;
                     downEnd = 0;
                     downDelta = -1;
                     doodadMover = (doodad, delta) => doodad.Column += delta;
                 }
                 else
                 {
-                    acrossStart = this.board.NumberOfRows - 1;
+                    acrossStart = this.numberOfRows - 1;
                     acrossEnd = 0;
                     acrossDelta = -1;
                     downStart = 0;
-                    downEnd = this.board.NumberOfColumns - 1;
+                    downEnd = this.numberOfColumns - 1;
                     downDelta = 1;
                     doodadMover = (doodad, delta) => doodad.Column -= delta;
                 }

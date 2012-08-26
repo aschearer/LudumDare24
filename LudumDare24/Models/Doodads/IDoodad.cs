@@ -1,4 +1,5 @@
-﻿using LudumDare24.Models.Boards;
+﻿using System.Collections.Generic;
+using LudumDare24.Models.Boards;
 using Microsoft.Xna.Framework;
 
 namespace LudumDare24.Models.Doodads
@@ -9,6 +10,6 @@ namespace LudumDare24.Models.Doodads
         int Row { get; set; }
         FallingState FallingState { get; }
 
-        void Update(GameTime gameTime, IBoard board);
+        void Update(IEnumerable<IDoodad> doodads);
     }
 }

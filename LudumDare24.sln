@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudumDare24.ContentPipeline
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudumDare24.Cereal", "LudumDare24.Cereal\LudumDare24.Cereal.csproj", "{E8C339D7-F8E1-40F1-936F-16E87BD27666}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudumDare24.Tools", "LudumDare24.Tools\LudumDare24.Tools.csproj", "{78155C6C-044A-40AA-8288-CD235488E706}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = LudumDare24.vsmdi
@@ -79,6 +81,16 @@ Global
 		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|Mixed Platforms.Build.0 = Release|x86
 		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|x86.ActiveCfg = Release|x86
 		{E8C339D7-F8E1-40F1-936F-16E87BD27666}.Release|x86.Build.0 = Release|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Debug|x86.ActiveCfg = Debug|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Debug|x86.Build.0 = Debug|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Release|Any CPU.ActiveCfg = Release|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Release|Mixed Platforms.Build.0 = Release|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Release|x86.ActiveCfg = Release|x86
+		{78155C6C-044A-40AA-8288-CD235488E706}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

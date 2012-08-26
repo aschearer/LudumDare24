@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{78155C6C-044A-40AA-8288-CD235488E706}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LudumDare24.Tools</RootNamespace>
+    <AssemblyName>LudumDare24.Tools</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\LudumDare24\Models\Boards\Board.cs">
+      <Link>Models\Boards\Board.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Boards\BoardPacker.cs">
+      <Link>Models\Boards\BoardPacker.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Boards\IBoard.cs">
+      <Link>Models\Boards\IBoard.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Constants.cs">
+      <Link>Models\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\Balloon.cs">
+      <Link>Models\Doodads\Balloon.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\Cat.cs">
+      <Link>Models\Doodads\Cat.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\Cheese.cs">
+      <Link>Models\Doodads\Cheese.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\Crate.cs">
+      <Link>Models\Doodads\Crate.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\Doodad.cs">
+      <Link>Models\Doodads\Doodad.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\DoodadFactory.cs">
+      <Link>Models\Doodads\DoodadFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\FallingState.cs">
+      <Link>Models\Doodads\FallingState.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\IDoodad.cs">
+      <Link>Models\Doodads\IDoodad.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\Mouse.cs">
+      <Link>Models\Doodads\Mouse.cs</Link>
+    </Compile>
+    <Compile Include="..\LudumDare24\Models\Doodads\Peg.cs">
+      <Link>Models\Doodads\Peg.cs</Link>
+    </Compile>
+    <Compile Include="AppServiceProvider.cs" />
+    <Compile Include="Models\Analysis\ByteArrayEqualityComparer.cs" />
+    <Compile Include="EvaluateBoard.cs" />
+    <Compile Include="Models\Analysis\MovementType.cs" />
+    <Compile Include="Models\Analysis\MovementNode.cs" />
+    <Compile Include="Models\Analysis\MovementNodeComparer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LudumDare24.Cereal\LudumDare24.Cereal.csproj">
+      <Project>{E8C339D7-F8E1-40F1-936F-16E87BD27666}</Project>
+      <Name>LudumDare24.Cereal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -42,7 +42,7 @@ namespace LudumDare24.ViewModels.States
 
         public void Update(GameTime gameTime)
         {
-            this.boardPacker.Pack(this.Rotation);
+            this.boardPacker.Pack(this.board.Doodads, this.Rotation);
 
             if (Math.Abs(this.Rotation - this.targetRotation) > 0.01f)
             {
@@ -60,7 +60,7 @@ namespace LudumDare24.ViewModels.States
             {
                 foreach (IDoodad doodad in this.Doodads)
                 {
-                    doodad.Update(gameTime, this.board);
+                    doodad.Update(this.board.Doodads);
                 }
 
                 Mouse mouse = (Mouse)this.Doodads.First(doodad => doodad is Mouse);

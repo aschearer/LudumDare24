@@ -33,7 +33,7 @@ namespace LudumDare24
             // Models
             SimpleIoc.Default.Register<World>(() => new World(new Vector2(0, 60f/ 3)));
             SimpleIoc.Default.Register<IBoard>(() => new Board(Constants.NumberOfColumns, Constants.NumberOfRows));
-            SimpleIoc.Default.Register<BoardPacker>();
+            SimpleIoc.Default.Register<BoardPacker>(() => new BoardPacker(Constants.NumberOfColumns, Constants.NumberOfRows));
             SimpleIoc.Default.Register<DoodadFactory>();
             SimpleIoc.Default.Register<LevelFactory>();
 
