@@ -22,6 +22,11 @@ namespace LudumDare24.Models.Levels
             this.currentLevel = 1;
         }
 
+        public int CurrentLevel
+        {
+            get { return this.currentLevel; }
+        }
+
         public void AdvanceToNextLevel()
         {
             this.currentLevel++;

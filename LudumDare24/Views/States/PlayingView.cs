@@ -24,9 +24,11 @@ namespace LudumDare24.Views.States
         private readonly List<DoodadView> doodadViews;
         private readonly ITween translateOutTween;
         private readonly ITween translateInTween;
+        private readonly ITween textTween;
         private bool isContentLoaded;
         private Texture2D boardTexture;
         private Texture2D stencilTexture;
+        private SpriteFont levelHeaderFont;
 
         public PlayingView(
             SpriteBatch spriteBatch, 
@@ -55,6 +57,10 @@ namespace LudumDare24.Views.States
 
             this.translateInTween = TweenFactory.Tween(Constants.ScreenHeight, 0, TimeSpan.FromSeconds(0.75f));
             this.translateInTween.IsPaused = true;
+
+            this.textTween = TweenFactory.Tween(0, 1, TimeSpan.FromSeconds(0.3f));
+            this.textTween.Reverse();
+            this.textTween.IsPaused = true;
         }
 
         public void NavigateTo()
@@ -81,7 +87,6 @@ namespace LudumDare24.Views.States
 
         public void Draw(GameTime gameTime)
         {
-
             //DepthStencilState stencilState = new DepthStencilState();
             //stencilState.StencilEnable = true;
             //stencilState.DepthBufferEnable = false;
@@ -110,7 +115,11 @@ namespace LudumDare24.Views.States
                 if (!this.translateInTween.IsRunning && (this.translateOutTween.IsPaused || this.translateOutTween.IsFinished))
                 {
                     this.translateOutTween.Restart();
+                    this.textTween.Reverse();
+                    this.textTween.Restart();
                 }
+
+                this.textTween.Update(gameTime);
 
                 if (!this.translateOutTween.IsFinished)
                 {
@@ -119,6 +128,8 @@ namespace LudumDare24.Views.States
                     if (this.translateOutTween.IsFinished)
                     {
                         this.translateInTween.Restart();
+                        this.textTween.Reverse();
+                        this.textTween.Restart();
                         this.viewModel.AdvanceLevelCommand.Execute(null);
                     }
                 }
@@ -137,6 +148,7 @@ namespace LudumDare24.Views.States
                 Matrix.CreateTranslation(-Constants.GameAreaHalfSize, -Constants.GameAreaHalfSize, 0) *
                 Matrix.CreateRotationZ(this.viewModel.Rotation) *
                 Matrix.CreateTranslation(Constants.ScreenWidth / 2f, yOffset, 0);
+
             this.spriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 null,
@@ -159,6 +171,14 @@ namespace LudumDare24.Views.States
             this.spriteBatch.End();
 
             this.spriteBatch.Begin();
+
+
+            this.spriteBatch.DrawString(
+                this.levelHeaderFont,
+                "Level " + this.viewModel.CurrentLevel,
+                new Vector2(260 - 100 * this.textTween.Value, 90),
+                Color.Black * (1 - this.textTween.Value));
+
             this.rotateClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.rotateCounterClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
@@ -198,6 +218,7 @@ namespace LudumDare24.Views.States
 
             this.boardTexture = this.content.Load<Texture2D>("Images/Doodads/Cage");
             this.stencilTexture = this.content.Load<Texture2D>("Images/Playing/Mask");
+            this.levelHeaderFont = this.content.Load<SpriteFont>("Fonts/ComicSans24");
             this.rotateClockwiseButton.LoadContent(this.content);
             this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;

@@ -46,6 +46,8 @@ namespace LudumDare24.ViewModels.States
 
         public float Rotation { get; private set; }
 
+        public int CurrentLevel { get { return this.levelFactory.CurrentLevel; } }
+
         public bool IsLevelComplete { get; set; }
 
         public ObservableCollection<IDoodad> Doodads
@@ -86,8 +88,6 @@ namespace LudumDare24.ViewModels.States
                 if (Math.Abs(this.Rotation - this.targetRotation) <= 0.01f)
                 {
                     this.Rotation = this.targetRotation;
-                    Vector2 adjustment = new Vector2((float)Math.Sin(this.Rotation), (float)Math.Cos(this.Rotation));
-                    adjustment.Normalize();
                 }
             }
 
