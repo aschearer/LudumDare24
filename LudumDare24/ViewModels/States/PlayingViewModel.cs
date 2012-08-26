@@ -23,6 +23,7 @@ namespace LudumDare24.ViewModels.States
         private bool animateLevelStart;
         private TimeSpan spinTimer;
         private TimeSpan spinInTimer;
+        private bool levelCleared;
 
         public PlayingViewModel(
             IBoard board, 
@@ -100,14 +101,15 @@ namespace LudumDare24.ViewModels.States
                 Mouse mouse = (Mouse)this.Doodads.First(doodad => doodad is Mouse);
                 if (mouse.GotTheCheese)
                 {
+                    this.levelCleared = true;
                     this.animateLevelComplete = true;
                     this.spinTimer = TimeSpan.Zero;
                 }
                 else if (mouse.CaughtByCat)
                 {
-                    this.levelFactory.LoadLevel();
-                    this.Rotation = 0;
-                    this.targetRotation = 0;
+                    this.levelCleared = false;
+                    this.animateLevelComplete = true;
+                    this.spinTimer = TimeSpan.Zero;
                 }
             }
             else
@@ -130,7 +132,15 @@ namespace LudumDare24.ViewModels.States
 
         private void AdvanceToNewLevel()
         {
-            this.levelFactory.AdvanceToNextLevel();
+            if (this.levelCleared)
+            {
+                this.levelFactory.AdvanceToNextLevel();
+            }
+            else
+            {
+                this.levelFactory.LoadLevel();
+            }
+
             this.spinInTimer = TimeSpan.Zero;
             this.Rotation = 0;
             this.animateLevelStart = true;
