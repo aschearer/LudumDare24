@@ -48,6 +48,8 @@ namespace LudumDare24.ViewModels.States
 
         public int CurrentLevel { get { return this.levelFactory.CurrentLevel; } }
 
+        public int CurrentMove { get; private set; }
+
         public bool IsLevelComplete { get; set; }
 
         public ObservableCollection<IDoodad> Doodads
@@ -143,6 +145,7 @@ namespace LudumDare24.ViewModels.States
 
             this.spinInTimer = TimeSpan.Zero;
             this.Rotation = 0;
+            this.CurrentMove = 0;
             this.animateLevelStart = true;
             this.animateLevelComplete = false;
         }
@@ -163,6 +166,7 @@ namespace LudumDare24.ViewModels.States
                 return;
             }
 
+            this.CurrentMove++;
             this.cooldownTimer = TimeSpan.FromSeconds(.75f);
             this.rotateClockwise = clockwise;
             this.targetRotation += clockwise ? MathHelper.PiOver2 : -MathHelper.PiOver2;

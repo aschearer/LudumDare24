@@ -179,6 +179,20 @@ namespace LudumDare24.Views.States
                 new Vector2(260 - 100 * this.textTween.Value, 90),
                 Color.Black * (1 - this.textTween.Value));
 
+            string moveStringFormat = this.viewModel.CurrentMove == 1 ? "{0} turn" : "{0} turns";
+            string moveString = string.Format(moveStringFormat, this.viewModel.CurrentMove);
+            Vector2 textDimensions = this.levelHeaderFont.MeasureString(moveString);
+            this.spriteBatch.DrawString(
+                this.levelHeaderFont,
+                moveString,
+                new Vector2(760 + 100 * this.textTween.Value, 90),
+                Color.Black * (1 - this.textTween.Value),
+                0,
+                new Vector2(textDimensions.X, 0), 
+                1,
+                SpriteEffects.None,
+                0);
+
             this.rotateClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.rotateCounterClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
