@@ -29,6 +29,9 @@ namespace LudumDare24.Views.States
         private Texture2D boardTexture;
         private Texture2D stencilTexture;
         private SpriteFont levelHeaderFont;
+        private readonly ButtonView spottedZebraButton;
+        private Texture2D headerTexture;
+        private Texture2D anExperimentByTexture;
 
         public PlayingView(
             SpriteBatch spriteBatch, 
@@ -43,13 +46,13 @@ namespace LudumDare24.Views.States
             this.rotateClockwiseButton = new ButtonView(
                 inputManager,
                 "Images/Playing/RotateClockwise",
-                new Vector2(Constants.ScreenWidth - 100, Constants.ScreenHeight / 2));
+                new Vector2(Constants.ScreenWidth - 127, 428));
             this.rotateClockwiseButton.Command = new RelayCommand(() => this.viewModel.Rotate(true));
 
             this.rotateCounterClockwiseButton = new ButtonView(
                 inputManager,
                 "Images/Playing/RotateCounterClockwise",
-                new Vector2(100, Constants.ScreenHeight / 2));
+                new Vector2(127, 428));
             this.rotateCounterClockwiseButton.Command = new RelayCommand(() => this.viewModel.Rotate(false));
 
             this.translateOutTween = TweenFactory.Tween(0, Constants.ScreenHeight, TimeSpan.FromSeconds(0.75f));
@@ -61,12 +64,19 @@ namespace LudumDare24.Views.States
             this.textTween = TweenFactory.Tween(0, 1, TimeSpan.FromSeconds(0.3f));
             this.textTween.Reverse();
             this.textTween.IsPaused = true;
+
+            this.spottedZebraButton = new ButtonView(
+                inputManager,
+                "Images/Playing/SpottedZebraLogo",
+                new Vector2(Constants.ScreenWidth - 78, 36));
+            this.spottedZebraButton.Command = this.viewModel.OpenCompanyUrlCommand;
         }
 
         public void NavigateTo()
         {
             this.rotateClockwiseButton.Activate();
             this.rotateCounterClockwiseButton.Activate();
+            this.spottedZebraButton.Activate();
             this.viewModel.Doodads.CollectionChanged += this.OnDoodadsChanged;
             this.LoadContent();
 
@@ -77,6 +87,7 @@ namespace LudumDare24.Views.States
         {
             this.rotateClockwiseButton.Deactivate();
             this.rotateCounterClockwiseButton.Deactivate();
+            this.spottedZebraButton.Deactivate();
             this.viewModel.Doodads.CollectionChanged -= this.OnDoodadsChanged;
         }
 
@@ -109,7 +120,7 @@ namespace LudumDare24.Views.States
             //spotlightStencil.StencilPass = StencilOperation.Keep;
             //spotlightStencil.ReferenceStencil = 1;
 
-            float yOffset = Constants.ScreenHeight / 2f;
+            float yOffset = 428;
             if (this.viewModel.IsLevelComplete)
             {
                 if (!this.translateInTween.IsRunning && (this.translateOutTween.IsPaused || this.translateOutTween.IsFinished))
@@ -124,7 +135,7 @@ namespace LudumDare24.Views.States
                 if (!this.translateOutTween.IsFinished)
                 {
                     this.translateOutTween.Update(gameTime);
-                    yOffset = Constants.ScreenHeight / 2f - this.translateOutTween.Value;
+                    yOffset = 428 - this.translateOutTween.Value;
                     if (this.translateOutTween.IsFinished)
                     {
                         this.translateInTween.Restart();
@@ -136,7 +147,7 @@ namespace LudumDare24.Views.States
                 else
                 {
                     this.translateInTween.Update(gameTime);
-                    yOffset = Constants.ScreenHeight / 2f + this.translateInTween.Value;
+                    yOffset = 428 + this.translateInTween.Value;
                     if (this.translateInTween.IsFinished)
                     {
                         this.viewModel.StartLevelCommand.Execute(null);
@@ -172,11 +183,20 @@ namespace LudumDare24.Views.States
 
             this.spriteBatch.Begin();
 
+            this.spriteBatch.Draw(
+                this.headerTexture,
+                new Vector2(50, 20),
+                Color.White);
+
+            this.spriteBatch.Draw(
+                this.anExperimentByTexture,
+                new Vector2(Constants.ScreenWidth - 210, 48),
+                Color.White);
 
             this.spriteBatch.DrawString(
                 this.levelHeaderFont,
                 "Level " + this.viewModel.CurrentLevel,
-                new Vector2(260 - 100 * this.textTween.Value, 90),
+                new Vector2(260 - 100 * this.textTween.Value, 130),
                 Color.Black * (1 - this.textTween.Value));
 
             string moveStringFormat = this.viewModel.CurrentMove == 1 ? "{0} turn" : "{0} turns";
@@ -185,7 +205,7 @@ namespace LudumDare24.Views.States
             this.spriteBatch.DrawString(
                 this.levelHeaderFont,
                 moveString,
-                new Vector2(760 + 100 * this.textTween.Value, 90),
+                new Vector2(760 + 100 * this.textTween.Value, 130),
                 Color.Black * (1 - this.textTween.Value),
                 0,
                 new Vector2(textDimensions.X, 0), 
@@ -193,6 +213,7 @@ namespace LudumDare24.Views.States
                 SpriteEffects.None,
                 0);
 
+            this.spottedZebraButton.Draw(gameTime, this.spriteBatch);
             this.rotateClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.rotateCounterClockwiseButton.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
@@ -230,9 +251,12 @@ namespace LudumDare24.Views.States
                 return;
             }
 
+            this.headerTexture = this.content.Load<Texture2D>("Images/Playing/Header");
+            this.anExperimentByTexture = this.content.Load<Texture2D>("Images/Playing/AnExperimentBy");
             this.boardTexture = this.content.Load<Texture2D>("Images/Doodads/Cage");
             this.stencilTexture = this.content.Load<Texture2D>("Images/Playing/Mask");
             this.levelHeaderFont = this.content.Load<SpriteFont>("Fonts/ComicSans24");
+            this.spottedZebraButton.LoadContent(this.content);
             this.rotateClockwiseButton.LoadContent(this.content);
             this.rotateCounterClockwiseButton.LoadContent(this.content);
             this.isContentLoaded = true;

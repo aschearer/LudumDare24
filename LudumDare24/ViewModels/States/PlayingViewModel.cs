@@ -1,8 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using LudumDare24.Models;
 using LudumDare24.Models.Boards;
 using LudumDare24.Models.Doodads;
 using LudumDare24.Models.Levels;
@@ -36,6 +38,7 @@ namespace LudumDare24.ViewModels.States
             this.StartNewGameCommand = new RelayCommand(this.StartNewGame);
             this.AdvanceLevelCommand = new RelayCommand(this.AdvanceToNewLevel);
             this.StartLevelCommand = new RelayCommand(this.StartLevel);
+            this.OpenCompanyUrlCommand = new RelayCommand(() => Process.Start(Constants.SpottedZebraUrl));
         }
 
         public ICommand StartNewGameCommand { get; private set; }
@@ -56,6 +59,8 @@ namespace LudumDare24.ViewModels.States
         {
             get { return this.board.Doodads; }
         }
+
+        public ICommand OpenCompanyUrlCommand { get; private set; }
 
         public void Update(GameTime gameTime)
         {

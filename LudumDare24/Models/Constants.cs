@@ -2,6 +2,7 @@ namespace LudumDare24.Models
 {
     public class Constants
     {
+        public const string SpottedZebraUrl = "http://spottedzebrasoftware.com/about";
         public const int ScreenWidth = 1024;
         public const int ScreenHeight = 768;
         public const float Gravity = 10;
