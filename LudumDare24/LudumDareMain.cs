@@ -39,7 +39,9 @@ namespace LudumDare24
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));
-
+#if SILVERLIGHT
+            this.AddFont("appleberry", "./Content/Fonts/appleberry_with_cryllic.ttf#appleberry");
+#endif
         }
 
         protected override void LoadContent()

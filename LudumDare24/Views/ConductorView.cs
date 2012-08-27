@@ -22,7 +22,7 @@ namespace LudumDare24.Views
     /// the ConductorView tries to find the corresponding view and add it to the
     /// stack of active views.
     /// </remarks>
-    class ConductorView
+    public class ConductorView
     {
         private readonly IConductorViewModel viewModel;
         private readonly IEnumerable<IScreenView> views;

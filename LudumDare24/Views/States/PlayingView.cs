@@ -160,6 +160,7 @@ namespace LudumDare24.Views.States
                 Matrix.CreateRotationZ(this.viewModel.Rotation) *
                 Matrix.CreateTranslation(Constants.ScreenWidth / 2f, yOffset, 0);
 
+#if !SILVERLIGHT
             this.spriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 null,
@@ -168,6 +169,13 @@ namespace LudumDare24.Views.States
                 null,
                 null,
                 rotationMatrix);
+#else
+            this.spriteBatch.Begin(
+                SpriteBlendMode.None,
+                SpriteSortMode.Deferred,
+                SaveStateMode.None,
+                rotationMatrix);
+#endif
 
             foreach (DoodadView doodadView in this.doodadViews)
             {
@@ -193,11 +201,16 @@ namespace LudumDare24.Views.States
                 new Vector2(Constants.ScreenWidth - 210, 48),
                 Color.White);
 
+            Color black = Color.Black;
+            black.R = (byte)(black.R * (1 - this.textTween.Value));
+            black.G = (byte)(black.G * (1 - this.textTween.Value));
+            black.B = (byte)(black.B * (1 - this.textTween.Value));
+            black.A = (byte)(black.A * (1 - this.textTween.Value));
             this.spriteBatch.DrawString(
                 this.levelHeaderFont,
                 "Level " + this.viewModel.CurrentLevel,
                 new Vector2(262 - 100 * this.textTween.Value, 135),
-                Color.Black * (1 - this.textTween.Value));
+                black);
 
             string moveStringFormat = this.viewModel.CurrentMove == 1 ? "{0} Turn" : "{0} Turns";
             string moveString = string.Format(moveStringFormat, this.viewModel.CurrentMove);
@@ -206,7 +219,7 @@ namespace LudumDare24.Views.States
                 this.levelHeaderFont,
                 moveString,
                 new Vector2(760 + 100 * this.textTween.Value, 135),
-                Color.Black * (1 - this.textTween.Value),
+                black,
                 0,
                 new Vector2(textDimensions.X, 0), 
                 1,

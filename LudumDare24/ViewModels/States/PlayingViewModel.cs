@@ -18,6 +18,7 @@ namespace LudumDare24.ViewModels.States
         private readonly IBoard board;
         private readonly BoardPacker boardPacker;
         private readonly LevelFactory levelFactory;
+        private readonly IUrlLauncher urlLauncher;
         private float targetRotation;
         private bool rotateClockwise;
         private TimeSpan cooldownTimer;
@@ -30,15 +31,17 @@ namespace LudumDare24.ViewModels.States
         public PlayingViewModel(
             IBoard board, 
             BoardPacker boardPacker,
-            LevelFactory levelFactory)
+            LevelFactory levelFactory,
+            IUrlLauncher urlLauncher)
         {
             this.board = board;
             this.boardPacker = boardPacker;
             this.levelFactory = levelFactory;
+            this.urlLauncher = urlLauncher;
             this.StartNewGameCommand = new RelayCommand(this.StartNewGame);
             this.AdvanceLevelCommand = new RelayCommand(this.AdvanceToNewLevel);
             this.StartLevelCommand = new RelayCommand(this.StartLevel);
-            this.OpenCompanyUrlCommand = new RelayCommand(() => Process.Start(Constants.SpottedZebraUrl));
+            this.OpenCompanyUrlCommand = new RelayCommand(() => this.urlLauncher.OpenUrl(Constants.SpottedZebraUrl));
         }
 
         public ICommand StartNewGameCommand { get; private set; }

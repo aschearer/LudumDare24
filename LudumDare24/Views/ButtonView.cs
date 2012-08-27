@@ -77,7 +77,7 @@ namespace LudumDare24.Views
         public void LoadContent(ContentManager content)
         {
             this.texture = content.Load<Texture2D>(this.textureName);
-            this.bounds = this.texture.Bounds;
+            this.bounds = new Rectangle(0, 0, this.texture.Width, this.texture.Height);
             this.bounds.X = (int)this.position.X - this.bounds.Width / 2;
             this.bounds.Y = (int)this.position.Y - this.bounds.Height / 2;
             this.origin = new Vector2(this.bounds.Width / 2f, this.bounds.Height / 2f);
@@ -86,25 +86,20 @@ namespace LudumDare24.Views
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this.Draw(gameTime, spriteBatch, 1);
-        }
-
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, float opacity)
-        {
             if (!this.IsVisible)
             {
                 return;
             }
 
             this.scaleTween.Update(gameTime);
-            Color color = this.Command != null && this.Command.CanExecute(null) ? Color.White : Color.DarkGray;
+            Color color = this.Command != null && this.Command.CanExecute(null) ? Color.White : Color.Black;
 
             Vector2 scale = new Vector2(this.scaleTween.Value, this.scaleTween.Value);
             spriteBatch.Draw(
                 this.Texture,
                 this.position, 
                 null,
-                color * opacity,
+                color,
                 0,
                 this.origin,
                 scale,

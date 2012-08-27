@@ -11,7 +11,9 @@ using LudumDare24.Views;
 using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.States;
+using LudumDare24.Web.ViewModels;
 using Microsoft.Practices.ServiceLocation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -37,7 +39,7 @@ namespace LudumDare24
             // View Models
             SimpleIoc.Default.Register<IConductorViewModel, ConductorViewModel>();
             SimpleIoc.Default.Register<PlayingViewModel>();
-            SimpleIoc.Default.Register<IUrlLauncher, Win7UrlLauncher>();
+            SimpleIoc.Default.Register<IUrlLauncher, WebUrlLauncher>();
 
             // Views
             SimpleIoc.Default.Register<IInputManager, MouseInputManager>();

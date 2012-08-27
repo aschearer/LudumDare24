@@ -8,6 +8,11 @@ namespace LudumDare24.ViewModels
         public event EventHandler<EventArgs> PopViewModel;
         public event EventHandler<NavigationEventArgs> SetTopViewModel;
 
+        public ConductorViewModel()
+        {
+            
+        }
+
         public void Push(Type viewModel)
         {
             this.PushViewModel(this, new NavigationEventArgs(viewModel));
