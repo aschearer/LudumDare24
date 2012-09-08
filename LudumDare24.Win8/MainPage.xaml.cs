@@ -1,38 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LudumDare24.Win8
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : SwapChainBackgroundPanel
     {
+        private readonly GameTimer gameTimer;
+
         public MainPage()
         {
             this.InitializeComponent();
+            this.Loaded += this.OnLoad;
+
+            this.gameTimer = new GameTimer();
+            this.gameTimer.Draw += this.OnDraw;
+            this.gameTimer.Update += this.OnUpdate;
+            this.gameTimer.UpdateInterval = TimeSpan.Zero;
+
+            var services = new AppServiceProvider();
+            services.AddService(typeof(IGraphicsDeviceService), SharedGraphicsDeviceManager.Current);
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.  The Parameter
-        /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void OnLoad(object sender, RoutedEventArgs e)
         {
+            var deviceManager = SharedGraphicsDeviceManager.Current;
+            deviceManager.PreferredBackBufferWidth = (int)this.ActualWidth;
+            deviceManager.PreferredBackBufferHeight = (int)this.ActualHeight;
+            deviceManager.SwapChainPanel = this;
+            deviceManager.ApplyChanges();
+
+            this.gameTimer.Start();
+        }
+
+        private void OnUpdate(object sender, GameTimerEventArgs e)
+        {
+            GameTime gameTime = new GameTime(e.TotalTime, e.ElapsedTime);
+        }
+
+        private void OnDraw(object sender, GameTimerEventArgs e)
+        {
+            SharedGraphicsDeviceManager.Current.GraphicsDevice.Clear(Color.Black);
+            GameTime gameTime = new GameTime(e.TotalTime, e.ElapsedTime);
         }
     }
 }
