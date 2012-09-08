@@ -5,6 +5,7 @@ using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.Sounds;
+using LudumDare24.Win8.ViewModels.Settings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -48,6 +49,9 @@ namespace LudumDare24
             this.soundManagerView.LoadContent(this.content);
             this.soundManagerView.Activate();
             this.soundManager.PlayMusic();
+
+            WinRTSettingsManager settings = bootstrapper.GetInstance<WinRTSettingsManager>();
+            settings.Initialize();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));

@@ -15,6 +15,8 @@ using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.Sounds;
 using LudumDare24.Views.States;
+using LudumDare24.Win8.ViewModels.Settings;
+using LudumDare24.Win8.Views.Settings;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -46,12 +48,15 @@ namespace LudumDare24
             // View Models
             SimpleIoc.Default.Register<IConductorViewModel, ConductorViewModel>();
             SimpleIoc.Default.Register<PlayingViewModel>();
+            SimpleIoc.Default.Register<WinRTSettingsManager>();
+            SimpleIoc.Default.Register<AboutViewModel>();
 
             // Views
             SimpleIoc.Default.Register<IInputManager, MouseInputManager>();
             SimpleIoc.Default.Register<MouseInputManager>(() => (MouseInputManager)this.GetInstance<IInputManager>());
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
+            SimpleIoc.Default.Register<AboutView>(true);
             SimpleIoc.Default.Register<DoodadView>();
             SimpleIoc.Default.Register<SoundManagerView>();
 
