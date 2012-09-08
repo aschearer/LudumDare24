@@ -164,7 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LudumDare24.Cereal\LudumDare24.Cereal.csproj">
-      <Project>{E8C339D7-F8E1-40F1-936F-16E87BD27666}</Project>
+      <Project>{55D2F24C-0C2B-4679-ADA2-3963FACC2BE0}</Project>
       <Name>LudumDare24.Cereal</Name>
     </ProjectReference>
     <ProjectReference Include="..\LudumDare24.Content\LudumDare24Content.contentproj">
