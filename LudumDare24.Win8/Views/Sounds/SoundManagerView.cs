@@ -12,7 +12,7 @@ namespace LudumDare24.Views.Sounds
         private readonly ISoundManager soundManager;
         private readonly Random random;
         private readonly Dictionary<string, List<SoundEffectInstance>> sounds;
-        private Song backgroundMusic;
+        private SoundEffectInstance backgroundMusic;
         private bool isPlaying;
 
         public SoundManagerView(ISoundManager soundManager, Random random)
@@ -41,7 +41,8 @@ namespace LudumDare24.Views.Sounds
             this.sounds["Click"] = new List<SoundEffectInstance>();
             this.sounds["Click"].Add(content.Load<SoundEffect>("Sounds/Click").CreateInstance());
 
-            this.backgroundMusic = content.Load<Song>("Sounds/BackgroundMusic");
+            this.backgroundMusic = content.Load<SoundEffect>("Sounds/BackgroundMusic").CreateInstance();
+            this.backgroundMusic.IsLooped = true;
         }
 
         private void OnSoundPlayed(object sender, SoundEventArgs e)
@@ -54,19 +55,18 @@ namespace LudumDare24.Views.Sounds
         {
             if (this.isPlaying)
             {
-               MediaPlayer.Resume();
+                this.backgroundMusic.Resume();
             }
             else
             {
-                MediaPlayer.Play(this.backgroundMusic);
-                MediaPlayer.IsRepeating = true;
+                this.backgroundMusic.Play();
                 this.isPlaying = true;
             }
         }
 
         private void OnMusicStopped(object sender, EventArgs e)
         {
-            MediaPlayer.Pause();
+            this.backgroundMusic.Pause();
         }
     }
 }
