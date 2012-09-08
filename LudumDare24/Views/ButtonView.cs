@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Input;
+using LudumDare24.Models.Sounds;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.Tweens;
 using Microsoft.Xna.Framework;
@@ -24,6 +25,7 @@ namespace LudumDare24.Views
         private readonly ITween scaleTween;
         private readonly string textureName;
         private readonly Vector2 position;
+        private readonly ISoundManager soundManager;
         private Rectangle bounds;
         private Texture2D texture;
         private Vector2 origin;
@@ -31,11 +33,13 @@ namespace LudumDare24.Views
         public ButtonView(
             IInputManager inputManager, 
             string textureName, 
-            Vector2 position)
+            Vector2 position,
+            ISoundManager soundManager)
         {
             this.inputManager = inputManager;
             this.textureName = textureName;
             this.position = position;
+            this.soundManager = soundManager;
             this.scaleTween = TweenFactory.Tween(1, 0.9f, TimeSpan.FromSeconds(.1));
             this.scaleTween.IsPaused = true;
         }
@@ -153,6 +157,7 @@ namespace LudumDare24.Views
             this.inputManager.DragEnded -= this.OnDragEnded;
             if (this.Command != null && this.Command.CanExecute(null) && this.bounds.Contains(e.X, e.Y))
             {
+                this.soundManager.PlaySound("Click");
                 this.Execute();
             }
         }
@@ -166,6 +171,7 @@ namespace LudumDare24.Views
 
             if (this.Command != null && this.Command.CanExecute(null) && this.bounds.Contains(e.X, e.Y))
             {
+                this.soundManager.PlaySound("Click");
                 this.Execute();
                 this.scaleTween.Reverse();
                 this.scaleTween.Restart();

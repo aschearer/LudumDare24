@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using GalaSoft.MvvmLight.Command;
 using LudumDare24.Models;
 using LudumDare24.Models.Doodads;
+using LudumDare24.Models.Sounds;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Input;
@@ -37,7 +38,8 @@ namespace LudumDare24.Views.States
             SpriteBatch spriteBatch, 
             ContentManager content, 
             IInputManager inputManager,
-            PlayingViewModel viewModel)
+            PlayingViewModel viewModel,
+            ISoundManager soundManager)
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
@@ -46,13 +48,15 @@ namespace LudumDare24.Views.States
             this.rotateClockwiseButton = new ButtonView(
                 inputManager,
                 "Images/Playing/RotateClockwise",
-                new Vector2(Constants.ScreenWidth - 127, 428));
+                new Vector2(Constants.ScreenWidth - 127, 428),
+                soundManager);
             this.rotateClockwiseButton.Command = new RelayCommand(() => this.viewModel.Rotate(true));
 
             this.rotateCounterClockwiseButton = new ButtonView(
                 inputManager,
                 "Images/Playing/RotateCounterClockwise",
-                new Vector2(127, 428));
+                new Vector2(127, 428),
+                soundManager);
             this.rotateCounterClockwiseButton.Command = new RelayCommand(() => this.viewModel.Rotate(false));
 
             this.translateOutTween = TweenFactory.Tween(0, Constants.ScreenHeight, TimeSpan.FromSeconds(0.75f));
@@ -68,7 +72,8 @@ namespace LudumDare24.Views.States
             this.spottedZebraButton = new ButtonView(
                 inputManager,
                 "Images/Playing/SpottedZebraLogo",
-                new Vector2(Constants.ScreenWidth - 78, 36));
+                new Vector2(Constants.ScreenWidth - 78, 36),
+                soundManager);
             this.spottedZebraButton.Command = this.viewModel.OpenCompanyUrlCommand;
         }
 

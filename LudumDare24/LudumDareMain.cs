@@ -1,12 +1,15 @@
 using LudumDare24.Models;
 using LudumDare24.Models.Sessions;
+using LudumDare24.Models.Sounds;
 using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Input;
+using LudumDare24.Views.Sounds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace LudumDare24
 {
@@ -15,11 +18,13 @@ namespace LudumDare24
     /// </summary>
     public class LudumDareMain : Game
     {
-        readonly GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private readonly GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
         private ConductorView conductorView;
         private MouseInputManager inputManager;
         private SessionManager sessionManager;
+        private ISoundManager soundManager;
+        private SoundManagerView soundManagerView;
 
         public LudumDareMain()
         {
@@ -40,6 +45,12 @@ namespace LudumDare24
             this.inputManager = bootstrapper.GetInstance<MouseInputManager>();
             this.sessionManager = bootstrapper.GetInstance<SessionManager>();
             this.sessionManager.ReadSession();
+            this.soundManager = bootstrapper.GetInstance<ISoundManager>();
+            this.soundManagerView = bootstrapper.GetInstance<SoundManagerView>();
+
+            this.soundManagerView.LoadContent(this.Content);
+            this.soundManagerView.Activate();
+            this.soundManager.PlayMusic();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));

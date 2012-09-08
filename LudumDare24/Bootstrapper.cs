@@ -7,11 +7,13 @@ using LudumDare24.Models.Boards;
 using LudumDare24.Models.Doodads;
 using LudumDare24.Models.Levels;
 using LudumDare24.Models.Sessions;
+using LudumDare24.Models.Sounds;
 using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Input;
+using LudumDare24.Views.Sounds;
 using LudumDare24.Views.States;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Xna.Framework;
@@ -39,6 +41,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<LevelFactory>();
             SimpleIoc.Default.Register<Session>();
             SimpleIoc.Default.Register<SessionManager>();
+            SimpleIoc.Default.Register<ISoundManager, SoundManager>();
 
             // View Models
             SimpleIoc.Default.Register<IConductorViewModel, ConductorViewModel>();
@@ -50,6 +53,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<ConductorView>();
             SimpleIoc.Default.Register<PlayingView>();
             SimpleIoc.Default.Register<DoodadView>();
+            SimpleIoc.Default.Register<SoundManagerView>();
 
             List<IScreenView> screenViews = new List<IScreenView>();
             screenViews.Add(this.GetInstance<PlayingView>());
