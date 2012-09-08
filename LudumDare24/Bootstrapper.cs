@@ -6,6 +6,7 @@ using LudumDare24.Models;
 using LudumDare24.Models.Boards;
 using LudumDare24.Models.Doodads;
 using LudumDare24.Models.Levels;
+using LudumDare24.Models.Sessions;
 using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
@@ -36,6 +37,8 @@ namespace LudumDare24
             SimpleIoc.Default.Register<BoardPacker>(() => new BoardPacker(Constants.NumberOfColumns, Constants.NumberOfRows));
             SimpleIoc.Default.Register<DoodadFactory>();
             SimpleIoc.Default.Register<LevelFactory>();
+            SimpleIoc.Default.Register<Session>();
+            SimpleIoc.Default.Register<SessionManager>();
 
             // View Models
             SimpleIoc.Default.Register<IConductorViewModel, ConductorViewModel>();

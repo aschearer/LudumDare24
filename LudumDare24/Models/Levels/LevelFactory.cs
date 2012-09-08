@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LudumDare24.Cereal.Serialization;
 using LudumDare24.Models.Boards;
 using LudumDare24.Models.Doodads;
+using LudumDare24.Models.Sessions;
 using Microsoft.Xna.Framework.Content;
 
 namespace LudumDare24.Models.Levels
@@ -12,27 +13,27 @@ namespace LudumDare24.Models.Levels
         private readonly ContentManager content;
         private readonly IBoard board;
         private readonly DoodadFactory doodadFactory;
-        private int currentLevel;
+        private readonly Session session;
 
-        public LevelFactory(ContentManager content, IBoard board, DoodadFactory doodadFactory)
+        public LevelFactory(ContentManager content, IBoard board, DoodadFactory doodadFactory, Session session)
         {
             this.content = content;
             this.board = board;
             this.doodadFactory = doodadFactory;
-            this.currentLevel = 1;
+            this.session = session;
         }
 
         public int CurrentLevel
         {
-            get { return this.currentLevel; }
+            get { return this.session.CurrentLevel; }
         }
 
         public void AdvanceToNextLevel()
         {
-            this.currentLevel++;
-            if (this.currentLevel > 12)
+            this.session.CurrentLevel++;
+            if (this.session.CurrentLevel > 12)
             {
-                this.currentLevel = 1;
+                this.session.CurrentLevel = 1;
             }
 
             this.LoadLevel();
@@ -42,7 +43,7 @@ namespace LudumDare24.Models.Levels
         {
             this.board.Doodads.Clear();
 
-            var doodadPlacements = this.content.Load<IEnumerable<DoodadPlacement>>("Levels/Level" + this.currentLevel);
+            var doodadPlacements = this.content.Load<IEnumerable<DoodadPlacement>>("Levels/Level" + this.session.CurrentLevel);
             foreach (DoodadPlacement doodadPlacement in doodadPlacements)
             {
                 Type doodadType = Type.GetType("LudumDare24.Models.Doodads." + doodadPlacement.DoodadType);

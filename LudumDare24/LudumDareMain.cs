@@ -1,4 +1,5 @@
 using LudumDare24.Models;
+using LudumDare24.Models.Sessions;
 using LudumDare24.ViewModels;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
@@ -18,6 +19,7 @@ namespace LudumDare24
         SpriteBatch spriteBatch;
         private ConductorView conductorView;
         private MouseInputManager inputManager;
+        private SessionManager sessionManager;
 
         public LudumDareMain()
         {
@@ -36,10 +38,11 @@ namespace LudumDare24
 
             this.conductorView = bootstrapper.GetInstance<ConductorView>();
             this.inputManager = bootstrapper.GetInstance<MouseInputManager>();
+            this.sessionManager = bootstrapper.GetInstance<SessionManager>();
+            this.sessionManager.ReadSession();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));
-
         }
 
         protected override void LoadContent()
@@ -67,6 +70,12 @@ namespace LudumDare24
             this.conductorView.Update(gameTime);
 
             base.Update(gameTime);
+        }
+
+        protected override void OnExiting(object sender, System.EventArgs args)
+        {
+            base.OnExiting(sender, args);
+            this.sessionManager.WriteSession();
         }
 
         protected override void Draw(GameTime gameTime)
