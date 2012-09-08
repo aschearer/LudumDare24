@@ -10,6 +10,7 @@ namespace LudumDare24.Win8
     public sealed partial class MainPage : SwapChainBackgroundPanel
     {
         private readonly GameTimer gameTimer;
+        private LudumDareMain game;
 
         public MainPage()
         {
@@ -23,6 +24,8 @@ namespace LudumDare24.Win8
 
             var services = new AppServiceProvider();
             services.AddService(typeof(IGraphicsDeviceService), SharedGraphicsDeviceManager.Current);
+
+            this.game = new LudumDareMain(SharedGraphicsDeviceManager.Current, new ContentManager(services, "Assets"));
         }
 
         private void OnLoad(object sender, RoutedEventArgs e)
@@ -33,18 +36,27 @@ namespace LudumDare24.Win8
             deviceManager.SwapChainPanel = this;
             deviceManager.ApplyChanges();
 
+            this.game.Initialize();
+
             this.gameTimer.Start();
         }
 
         private void OnUpdate(object sender, GameTimerEventArgs e)
         {
             GameTime gameTime = new GameTime(e.TotalTime, e.ElapsedTime);
+            this.game.Update(gameTime);
         }
 
         private void OnDraw(object sender, GameTimerEventArgs e)
         {
             SharedGraphicsDeviceManager.Current.GraphicsDevice.Clear(Color.Black);
             GameTime gameTime = new GameTime(e.TotalTime, e.ElapsedTime);
+            this.game.Draw(gameTime);
+        }
+
+        public void OnExit()
+        {
+            this.game.OnExiting();
         }
     }
 }

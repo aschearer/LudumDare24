@@ -1,4 +1,3 @@
-using LudumDare24.Models;
 using LudumDare24.Models.Sessions;
 using LudumDare24.Models.Sounds;
 using LudumDare24.ViewModels;
@@ -7,18 +6,19 @@ using LudumDare24.Views;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.Sounds;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace LudumDare24
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class LudumDareMain : Game
+    public class LudumDareMain
     {
-        private readonly GraphicsDeviceManager graphics;
+        private readonly IGraphicsDeviceService graphics;
+        private readonly ContentManager content;
         private SpriteBatch spriteBatch;
         private ConductorView conductorView;
         private MouseInputManager inputManager;
@@ -26,20 +26,17 @@ namespace LudumDare24
         private ISoundManager soundManager;
         private SoundManagerView soundManagerView;
 
-        public LudumDareMain()
+        public LudumDareMain(IGraphicsDeviceService graphics, ContentManager content)
         {
-            this.graphics = new GraphicsDeviceManager(this);
-            this.graphics.PreferredBackBufferWidth = Constants.ScreenWidth;
-            this.graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
-            this.Content.RootDirectory = "Content";
-            this.IsMouseVisible = true;
+            this.graphics = graphics;
+            this.content = content;
         }
 
-        protected override void Initialize()
+        public void Initialize()
         {
-            base.Initialize();
+            this.LoadContent();
 
-            Bootstrapper bootstrapper = new Bootstrapper(this.Content, this.spriteBatch);
+            Bootstrapper bootstrapper = new Bootstrapper(this.content, this.spriteBatch);
 
             this.conductorView = bootstrapper.GetInstance<ConductorView>();
             this.inputManager = bootstrapper.GetInstance<MouseInputManager>();
@@ -48,7 +45,7 @@ namespace LudumDare24
             this.soundManager = bootstrapper.GetInstance<ISoundManager>();
             this.soundManagerView = bootstrapper.GetInstance<SoundManagerView>();
 
-            this.soundManagerView.LoadContent(this.Content);
+            this.soundManagerView.LoadContent(this.content);
             this.soundManagerView.Activate();
             this.soundManager.PlayMusic();
 
@@ -56,46 +53,32 @@ namespace LudumDare24
             conductorViewModel.Push(typeof(PlayingViewModel));
         }
 
-        protected override void LoadContent()
+        private void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            this.spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(this.graphics.GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
 
-        protected override void UnloadContent()
+        public void Update(GameTime gameTime)
         {
-            // TODO: Unload any non ContentManager content here
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             MouseState state = Mouse.GetState();
             this.inputManager.Update(state.LeftButton, new Point(state.X, state.Y));
 
             this.conductorView.Update(gameTime);
-
-            base.Update(gameTime);
         }
 
-        protected override void OnExiting(object sender, System.EventArgs args)
+        public void OnExiting()
         {
-            base.OnExiting(sender, args);
             this.sessionManager.WriteSession();
         }
 
-        protected override void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            this.graphics.GraphicsDevice.Clear(Color.White);
 
             this.conductorView.Draw(gameTime);
-
-            base.Draw(gameTime);
         }
     }
 }

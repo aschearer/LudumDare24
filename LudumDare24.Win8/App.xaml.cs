@@ -48,7 +48,9 @@ namespace LudumDare24.Win8
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            MainPage mainPage = (MainPage)Window.Current.Content;
+            mainPage.OnExit();
+
             deferral.Complete();
         }
     }
