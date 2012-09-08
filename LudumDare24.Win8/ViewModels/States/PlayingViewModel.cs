@@ -38,7 +38,7 @@ namespace LudumDare24.ViewModels.States
             this.StartNewGameCommand = new RelayCommand(this.StartNewGame);
             this.AdvanceLevelCommand = new RelayCommand(this.AdvanceToNewLevel);
             this.StartLevelCommand = new RelayCommand(this.StartLevel);
-            this.OpenCompanyUrlCommand = new RelayCommand(() => Process.Start(Constants.SpottedZebraUrl));
+            this.OpenCompanyUrlCommand = new RelayCommand(() => Windows.System.Launcher.LaunchUriAsync(new Uri(Constants.SpottedZebraUrl)));
         }
 
         public ICommand StartNewGameCommand { get; private set; }
