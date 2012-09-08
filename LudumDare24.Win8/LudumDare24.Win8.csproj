@@ -161,6 +161,34 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Fonts\ComicSans24.xnb" />
+    <Content Include="Assets\Images\Doodads\Balloon.xnb" />
+    <Content Include="Assets\Images\Doodads\Cage.xnb" />
+    <Content Include="Assets\Images\Doodads\Cat.xnb" />
+    <Content Include="Assets\Images\Doodads\Cheese.xnb" />
+    <Content Include="Assets\Images\Doodads\Crate.xnb" />
+    <Content Include="Assets\Images\Doodads\Mouse.xnb" />
+    <Content Include="Assets\Images\Doodads\Peg.xnb" />
+    <Content Include="Assets\Images\Playing\AnExperimentBy.xnb" />
+    <Content Include="Assets\Images\Playing\Header.xnb" />
+    <Content Include="Assets\Images\Playing\Mask.xnb" />
+    <Content Include="Assets\Images\Playing\RotateClockwise.xnb" />
+    <Content Include="Assets\Images\Playing\RotateCounterClockwise.xnb" />
+    <Content Include="Assets\Images\Playing\SpottedZebraLogo.xnb" />
+    <Content Include="Assets\Levels\Level1.xnb" />
+    <Content Include="Assets\Levels\Level10.xnb" />
+    <Content Include="Assets\Levels\Level11.xnb" />
+    <Content Include="Assets\Levels\Level12.xnb" />
+    <Content Include="Assets\Levels\Level2.xnb" />
+    <Content Include="Assets\Levels\Level3.xnb" />
+    <Content Include="Assets\Levels\Level4.xnb" />
+    <Content Include="Assets\Levels\Level5.xnb" />
+    <Content Include="Assets\Levels\Level6.xnb" />
+    <Content Include="Assets\Levels\Level7.xnb" />
+    <Content Include="Assets\Levels\Level8.xnb" />
+    <Content Include="Assets\Levels\Level9.xnb" />
+    <Content Include="Assets\Sounds\BackgroundMusic.xnb" />
+    <Content Include="Assets\Sounds\Click.xnb" />
     <None Include="LudumDare24.Win8_TemporaryKey.pfx" />
     <None Include="Models\Boards\.BoardPacker.cs.swp" />
     <None Include="packages.config" />
