@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -39,6 +41,8 @@ namespace LudumDare24.Win8
             this.game.Initialize();
 
             this.gameTimer.Start();
+
+            Window.Current.SizeChanged += this.OnWindowSizeChanged;
         }
 
         private void OnUpdate(object sender, GameTimerEventArgs e)
@@ -57,6 +61,27 @@ namespace LudumDare24.Win8
         public void OnExit()
         {
             this.game.OnExiting();
+        }
+
+        private void OnWindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        {
+            SharedGraphicsDeviceManager.Current.PreferredBackBufferWidth = (int)e.Size.Width;
+            SharedGraphicsDeviceManager.Current.PreferredBackBufferHeight = (int)e.Size.Height;
+            SharedGraphicsDeviceManager.Current.ApplyChanges();
+
+            switch (ApplicationView.Value)
+            {
+                case ApplicationViewState.FullScreenLandscape:
+                    break;
+                case ApplicationViewState.Filled:
+                    break;
+                case ApplicationViewState.Snapped:
+                    break;
+                case ApplicationViewState.FullScreenPortrait:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
