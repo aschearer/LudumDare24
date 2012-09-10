@@ -1,6 +1,7 @@
 using LudumDare24.Models.Sessions;
 using LudumDare24.Models.Sounds;
 using LudumDare24.ViewModels;
+using LudumDare24.ViewModels.Sharing;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Input;
@@ -52,6 +53,9 @@ namespace LudumDare24
 
             WinRTSettingsManager settings = bootstrapper.GetInstance<WinRTSettingsManager>();
             settings.Initialize();
+
+            WinRTSharingManager sharing = bootstrapper.GetInstance<WinRTSharingManager>();
+            sharing.Initialize();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));

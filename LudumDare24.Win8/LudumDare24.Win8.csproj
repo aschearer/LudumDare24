@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\Settings\AboutViewModel.cs" />
     <Compile Include="ViewModels\Settings\WinRTSettingsManager.cs" />
+    <Compile Include="ViewModels\Sharing\WinRTSharingManager.cs" />
     <Compile Include="ViewModels\States\PlayingViewModel.cs" />
     <Compile Include="Views\ButtonView.cs" />
     <Compile Include="Views\ConductorView.cs" />

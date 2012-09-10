@@ -2,6 +2,8 @@ namespace LudumDare24.Models
 {
     public class Constants
     {
+        public const string GameTitle = "Move the Cheese";
+        public const string GameUrl = "https://github.com/aschearer/LudumDare24";
         public const string SpottedZebraUrl = "http://spottedzebrasoftware.com/about";
         public const string PrivacyUrl = "http://spottedzebrasoftware.com/privacy";
         public const int ScreenWidth = 1024;

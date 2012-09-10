@@ -9,6 +9,7 @@ using LudumDare24.Models.Levels;
 using LudumDare24.Models.Sessions;
 using LudumDare24.Models.Sounds;
 using LudumDare24.ViewModels;
+using LudumDare24.ViewModels.Sharing;
 using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Doodads;
@@ -50,6 +51,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<PlayingViewModel>();
             SimpleIoc.Default.Register<WinRTSettingsManager>();
             SimpleIoc.Default.Register<AboutViewModel>();
+            SimpleIoc.Default.Register<WinRTSharingManager>();
 
             // Views
             SimpleIoc.Default.Register<IInputManager, MouseInputManager>();
