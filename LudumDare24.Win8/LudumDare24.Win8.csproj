@@ -131,6 +131,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\IConductorViewModel.cs" />
+    <Compile Include="ViewModels\Licensing\WinRTLicensingManager.cs" />
     <Compile Include="ViewModels\LiveTiles\WinRTTileManager.cs" />
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\Settings\AboutViewModel.cs" />
@@ -198,6 +199,7 @@
     <Content Include="Assets\Levels\Level9.xnb" />
     <Content Include="Assets\Sounds\BackgroundMusic.xnb" />
     <Content Include="Assets\Sounds\Click.xnb" />
+    <Content Include="Assets\WideLogo.png" />
     <None Include="LudumDare24.Win8_TemporaryKey.pfx" />
     <None Include="Models\Boards\.BoardPacker.cs.swp" />
     <None Include="packages.config" />
