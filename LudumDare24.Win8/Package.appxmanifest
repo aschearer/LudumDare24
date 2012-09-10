@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LudumDare24.Win8.App">
-      <VisualElements DisplayName="Move the Cheese" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="LudumDare24.Win8" ForegroundText="light" BackgroundColor="#FFFFFF">
-        <DefaultTile ShowName="allLogos" ShortName="Move the Cheese" WideLogo="Assets\WideLogo.png" />
+      <VisualElements DisplayName="Move the Cheese" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="LudumDare24.Win8" ForegroundText="dark" BackgroundColor="#FFFFFF">
+        <DefaultTile ShortName="Move the Cheese" WideLogo="Assets\WideLogo.png" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
     </Application>
