@@ -16,6 +16,7 @@ using LudumDare24.Views.Doodads;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.Sounds;
 using LudumDare24.Views.States;
+using LudumDare24.Win8.ViewModels.LiveTiles;
 using LudumDare24.Win8.ViewModels.Settings;
 using LudumDare24.Win8.Views.Settings;
 using Microsoft.Practices.ServiceLocation;
@@ -52,6 +53,7 @@ namespace LudumDare24
             SimpleIoc.Default.Register<WinRTSettingsManager>();
             SimpleIoc.Default.Register<AboutViewModel>();
             SimpleIoc.Default.Register<WinRTSharingManager>();
+            SimpleIoc.Default.Register<WinRTTileManager>();
 
             // Views
             SimpleIoc.Default.Register<IInputManager, MouseInputManager>();

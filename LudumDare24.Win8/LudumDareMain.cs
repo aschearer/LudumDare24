@@ -6,6 +6,7 @@ using LudumDare24.ViewModels.States;
 using LudumDare24.Views;
 using LudumDare24.Views.Input;
 using LudumDare24.Views.Sounds;
+using LudumDare24.Win8.ViewModels.LiveTiles;
 using LudumDare24.Win8.ViewModels.Settings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -56,6 +57,9 @@ namespace LudumDare24
 
             WinRTSharingManager sharing = bootstrapper.GetInstance<WinRTSharingManager>();
             sharing.Initialize();
+
+            WinRTTileManager tiles = bootstrapper.GetInstance<WinRTTileManager>();
+            tiles.ResetTile();
 
             IConductorViewModel conductorViewModel = bootstrapper.GetInstance<IConductorViewModel>();
             conductorViewModel.Push(typeof(PlayingViewModel));

@@ -131,6 +131,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\IConductorViewModel.cs" />
+    <Compile Include="ViewModels\LiveTiles\WinRTTileManager.cs" />
     <Compile Include="ViewModels\NavigationEventArgs.cs" />
     <Compile Include="ViewModels\Settings\AboutViewModel.cs" />
     <Compile Include="ViewModels\Settings\WinRTSettingsManager.cs" />
